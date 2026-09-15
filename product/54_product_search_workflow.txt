@@ -1,0 +1,41 @@
+============================================================
+ZYRA LUXE - PRODUCT SEARCH WORKFLOW
+============================================================
+
+products.json
+      ↓
+Load Products
+      ↓
+ProductSearch
+      ↓
+Apply Filters
+      │
+      ├── Search Text
+      ├── Maximum Price
+      ├── Category
+      └── Stock
+      ↓
+Matching Products
+      ↓
+Display Results
+
+
+Example
+-------
+
+Category:
+Earrings
+
+Maximum Price:
+₹1000
+
+Stock:
+Available
+
+        ↓
+
+Product Search
+
+        ↓
+
+Matching Products

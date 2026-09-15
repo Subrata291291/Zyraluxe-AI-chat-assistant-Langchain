@@ -1,0 +1,46 @@
+============================================================
+ZYRA LUXE - HEALTH CHECK + LOGGING WORKFLOW
+============================================================
+
+Start
+  ↓
+Load .env
+  ↓
+Real Health Check
+  ↓
+ ┌──────────────────────────────┐
+ │ Gemini                       │
+ │ Groq                         │
+ │ OpenRouter                   │
+ │ OpenAI                       │
+ │ Pinecone                     │
+ └──────────────────────────────┘
+  ↓
+Healthy / Unhealthy
+  ↓
+Write Result to Logger
+  ↓
+logs/zyra_luxe.log
+
+
+Healthy Example
+---------------
+
+service=groq
+status=healthy
+message=API available
+
+
+Unhealthy Example
+-----------------
+
+service=openai
+status=unhealthy
+error=429 insufficient_quota
+
+
+Purpose
+-------
+
+Keep a historical record of
+service health checks.

@@ -1,0 +1,29 @@
+============================================================
+ZYRA LUXE - SOURCE CITATION WORKFLOW
+============================================================
+
+chunks.json
+      ↓
+Load Chunk
+      ↓
+Read Metadata
+      ↓
+Extract Source Information
+      ↓
+Source
+      |
+      +-- Title
+      +-- Page Type
+      +-- URL
+      +-- Chunk Index
+
+
+Example
+-------
+
+Answer:
+Refunds are processed within 7–10 business days.
+
+Source:
+Return Policy
+https://zyraluxe.in/return-policy/

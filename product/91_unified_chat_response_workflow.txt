@@ -1,0 +1,91 @@
+==================================================
+FILE 91 - UNIFIED CHAT RESPONSE
+==================================================
+
+Goal:
+Create one consistent response structure for the
+Zyra Luxe frontend.
+
+Current problem:
+
+PRODUCT
+POLICY
+ORDER
+GENERAL
+
+return different response structures.
+
+File 91 normalizes them.
+
+
+Input:
+
+{
+    "message": "Show me earrings"
+}
+
+
+Processing:
+
+User Message
+     ↓
+Zyra Assistant Orchestrator
+     ↓
+Route
+     ↓
+Response Formatter
+     ↓
+Unified Response
+
+
+Common structure:
+
+{
+    "success": true,
+    "route": "...",
+    "message": "...",
+    "data": {}
+}
+
+
+PRODUCT:
+
+data:
+    query
+    filters
+    product_count
+    products
+
+
+POLICY:
+
+data:
+    sources
+
+
+ORDER:
+
+data:
+    status
+    order_id
+    order
+
+
+GENERAL:
+
+data:
+    empty
+
+
+Frontend benefit:
+
+The frontend only needs to understand:
+
+success
+route
+message
+data
+
+
+It does not need to understand the internal
+backend architecture.

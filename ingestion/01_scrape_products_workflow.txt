@@ -1,0 +1,80 @@
+============================================================
+ZYRA LUXE - PRODUCT SCRAPING WORKFLOW
+============================================================
+
+INPUT
+-----
+Zyra Luxe Shop Website
+
+        |
+        v
+
+STEP 1
+------
+Request the shop page
+
+        |
+        v
+
+STEP 2
+------
+Find product links
+
+        |
+        v
+
+STEP 3
+------
+Visit each product page
+
+        |
+        v
+
+STEP 4
+------
+Extract product information
+
+    - Product name
+    - Price
+    - Regular price
+    - Sale price
+    - Stock status
+    - SKU
+    - Category
+    - Tags
+    - Description
+    - Product URL
+    - Image URL
+
+        |
+        v
+
+STEP 5
+------
+Clean the extracted data
+
+        |
+        v
+
+STEP 6
+------
+Store products as JSON
+
+        |
+        v
+
+OUTPUT
+------
+data/raw/products_raw.json
+
+
+IMPORTANT
+---------
+This file only handles data ingestion.
+
+It does NOT:
+- create embeddings
+- use Pinecone
+- call Gemini
+- perform RAG
+- generate chatbot answers

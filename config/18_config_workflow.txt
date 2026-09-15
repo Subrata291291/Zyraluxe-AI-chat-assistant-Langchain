@@ -1,0 +1,56 @@
+============================================================
+ZYRA LUXE - CONFIGURATION WORKFLOW
+============================================================
+
+.env
+  |
+  +-- GOOGLE_API_KEY
+  |
+  +-- PINECONE_API_KEY
+  |
+  ↓
+18_config.py
+  |
+  +-- LLM Model
+  +-- Embedding Model
+  +-- Pinecone Index
+  +-- Namespace
+  +-- Retrieval Settings
+  +-- API Settings
+  |
+  ↓
+Application
+
+
+Environment Secrets
+--------------------
+
+.env
+   ↓
+os.getenv()
+   ↓
+Configuration
+
+
+Application Settings
+--------------------
+
+LLM_MODEL
+EMBEDDING_MODEL
+PINECONE_INDEX_NAME
+PINECONE_NAMESPACE
+RETRIEVAL_TOP_K
+MIN_RETRIEVAL_SCORE
+MAX_CONTEXT_CHUNKS
+API_HOST
+API_PORT
+
+
+Important
+---------
+
+API keys are loaded from .env.
+
+API keys are NOT printed.
+
+.env remains protected by .gitignore.

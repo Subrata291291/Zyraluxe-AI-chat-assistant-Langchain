@@ -1,0 +1,35 @@
+============================================================
+FILE 57 - PRODUCT QUERY PARSER WORKFLOW
+============================================================
+
+Purpose:
+Convert natural language product requests into structured
+product filters.
+
+Input:
+Natural language customer query.
+
+Example:
+"Show me earrings under ₹300 that are available."
+
+Output:
+
+{
+    "category": "earrings",
+    "max_price": 300,
+    "in_stock": true
+}
+
+Flow:
+
+Customer Query
+      ↓
+Keyword Detection
+      ↓
+Price Extraction
+      ↓
+Stock Detection
+      ↓
+Structured Filters
+      ↓
+Search + Ranking

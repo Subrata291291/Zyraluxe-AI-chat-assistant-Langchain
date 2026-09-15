@@ -1,0 +1,49 @@
+============================================================
+FILE 69 - PRODUCT RECOMMENDATION ENGINE
+============================================================
+
+INPUT
+-----
+Customer natural-language query
+
+
+PROCESS
+-------
+1. Run integrated hybrid search
+2. Get filtered products
+3. Read semantic similarity score
+4. Give preference to in-stock products
+5. Apply business scoring
+6. Sort products
+7. Return top recommendations
+
+
+RECOMMENDATION SCORE
+--------------------
+Base:
+Semantic similarity score
+
+Bonus:
+In-stock product +0.10
+
+Bonus:
+Product price <= ₹300 +0.02
+
+
+OUTPUT
+------
+Top recommended products
+
+Each result contains:
+
+Name
+Price
+Stock
+Semantic Score
+URL
+
+
+PURPOSE
+-------
+Convert search results into
+shopping recommendations.

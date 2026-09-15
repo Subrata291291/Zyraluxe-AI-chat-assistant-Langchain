@@ -1,0 +1,32 @@
+============================================================
+ZYRA LUXE - RETRY POLICY CONFIGURATION
+============================================================
+
+18_config.py
+     ↓
+MAX_LLM_RETRIES
+RETRY_BASE_DELAY
+     ↓
+Retry Policy
+     ↓
+LLM Manager
+
+
+Example
+-------
+
+MAX_LLM_RETRIES = 2
+RETRY_BASE_DELAY = 2
+
+Retry 1 → 2 seconds
+Retry 2 → 4 seconds
+
+
+Purpose
+-------
+
+Keep retry settings centralized.
+
+Changing retry behavior
+does not require changing
+the LLM Manager code.

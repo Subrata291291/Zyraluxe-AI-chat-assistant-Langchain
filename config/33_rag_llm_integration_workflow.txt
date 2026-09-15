@@ -1,0 +1,45 @@
+============================================================
+ZYRA LUXE - RAG + LLM INTEGRATION WORKFLOW
+============================================================
+
+Customer Question
+       ↓
+Query Embedding
+       ↓
+Pinecone
+       ↓
+Relevant Context
+       ↓
+Build Grounded Prompt
+       ↓
+LLM Provider Manager
+       ↓
+Gemini
+       ↓
+   Success?
+   /      \
+ Yes       No
+ ↓         ↓
+Answer    Groq
+            ↓
+         OpenRouter
+            ↓
+           OpenAI
+            ↓
+         Answer
+       ↓
+Source Creation
+       ↓
+Final Response
+
+
+Important
+---------
+
+RAG provides the knowledge.
+
+LLM Provider Manager provides
+reliable answer generation.
+
+The LLM must answer using
+retrieved context only.

@@ -1,0 +1,38 @@
+============================================================
+ZYRA LUXE - DOCUMENT CHUNKING WORKFLOW
+============================================================
+
+documents.json
+       ↓
+Load Documents
+       ↓
+RecursiveCharacterTextSplitter
+       ↓
+Split large documents
+       ↓
+Preserve metadata
+       ↓
+Add chunk information
+       ↓
+Save JSON
+       ↓
+data/policies/chunks.json
+
+
+Chunk Configuration
+-------------------
+
+chunk_size = 800
+chunk_overlap = 120
+
+
+Purpose
+-------
+
+Large document
+       ↓
+Small meaningful chunks
+       ↓
+Better embedding
+       ↓
+Better retrieval

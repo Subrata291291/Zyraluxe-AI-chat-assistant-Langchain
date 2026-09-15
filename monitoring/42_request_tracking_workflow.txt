@@ -1,0 +1,42 @@
+============================================================
+ZYRA LUXE - REQUEST TRACKING WORKFLOW
+============================================================
+
+User Request
+     ↓
+Generate Request ID
+     ↓
+Start Timer
+     ↓
+LLM Processing
+     ↓
+Response
+     ↓
+Stop Timer
+     ↓
+Record Request
+
+
+Tracked Data
+------------
+
+Request ID
+Provider
+Success / Failure
+Response Time
+
+
+Example
+-------
+
+Request ID: req-001
+Provider: groq
+Success: True
+Response Time: 1.82 sec
+
+
+Purpose
+-------
+
+Measure chatbot performance
+and trace individual requests.

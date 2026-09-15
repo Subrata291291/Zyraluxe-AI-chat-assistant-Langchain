@@ -1,0 +1,43 @@
+============================================================
+ZYRA LUXE - PINECONE VECTOR UPLOAD WORKFLOW
+============================================================
+
+embeddings.json
+      ↓
+Load embeddings
+      ↓
+Read vector dimension
+      ↓
+Connect to Pinecone
+      ↓
+Check Index
+      ↓
+Create Index if needed
+      ↓
+Upsert vectors
+      ↓
+Namespace: knowledge
+      ↓
+Pinecone
+
+
+Stored Vector
+-------------
+
+ID
+Vector
+Text
+Page Type
+Title
+URL
+Chunk Index
+
+
+Purpose
+-------
+
+Local Embeddings
+      ↓
+Vector Database
+      ↓
+Semantic Retrieval

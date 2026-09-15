@@ -1,0 +1,47 @@
+==================================================
+FILE 79 - FRONTEND PRODUCT CARD TEST
+==================================================
+
+Goal:
+Test frontend communication with the FastAPI product API.
+
+Frontend:
+HTML + JavaScript
+
+API:
+POST /products/search
+
+Request:
+
+{
+    "query": "I want oxidized jewellery"
+}
+
+Process:
+
+User enters query
+        ↓
+JavaScript fetch()
+        ↓
+FastAPI
+        ↓
+Product AI System
+        ↓
+JSON response
+        ↓
+JavaScript
+        ↓
+Product Cards
+
+Product Card displays:
+
+- Image
+- Name
+- Price
+- Stock
+- Categories
+- View Product link
+
+Important:
+This is a test frontend.
+The existing Zyra Luxe UI is not modified.

@@ -1,0 +1,38 @@
+==================================================
+FILE 75 - PRODUCT STOCK STATUS
+==================================================
+
+Goal:
+Normalize product stock information.
+
+Input:
+data/products/products_enriched.json
+
+Rules:
+
+True
+    ↓
+In Stock
+
+False
+    ↓
+Out of Stock
+
+None
+    ↓
+Stock Unknown
+
+Process:
+
+products_enriched.json
+        ↓
+Read in_stock
+        ↓
+Normalize stock status
+        ↓
+Add stock_label
+        ↓
+products_stock_normalized.json
+
+Output:
+data/products/products_stock_normalized.json

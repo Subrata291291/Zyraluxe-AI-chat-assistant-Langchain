@@ -1,0 +1,84 @@
+============================================================
+ZYRA LUXE - CONVERSATIONAL RAG WORKFLOW
+============================================================
+
+Session Manager
+      ↓
+Conversation History
+      +
+Current Question
+      ↓
+Pinecone Retrieval
+      ↓
+Relevant Knowledge Context
+      ↓
+Build Conversational Prompt
+      ↓
+Gemini
+      ↓
+Context-aware Answer
+      ↓
+Store User + Assistant Messages
+      ↓
+Return Answer + Sources + History
+
+
+Example
+-------
+
+User:
+Can I return an item?
+
+      ↓
+
+RAG Context:
+Return Policy
+
+      ↓
+
+Assistant:
+Yes, you can request a return within 2 hours...
+
+
+User:
+What about sale items?
+
+      ↓
+
+Conversation History:
+User: Can I return an item?
+Assistant: Yes...
+
+
+      +
+
+Knowledge Context:
+Sale items are non-returnable.
+
+
+      ↓
+
+Gemini
+
+      ↓
+
+Assistant:
+Sale items are non-returnable.
+
+
+Important
+---------
+
+Conversation History
+        +
+RAG Knowledge
+
+are two different types of context.
+
+Conversation History
+    ↓
+Understands follow-up questions
+
+RAG Knowledge
+    ↓
+Provides factual information

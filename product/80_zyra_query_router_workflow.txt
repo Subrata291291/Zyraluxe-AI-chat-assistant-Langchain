@@ -1,0 +1,62 @@
+==================================================
+FILE 80 - ZYRA LUXE QUERY ROUTER
+==================================================
+
+Goal:
+Identify the type of customer query.
+
+Routes:
+
+PRODUCT
+POLICY
+ORDER
+GENERAL
+
+Process:
+
+Customer Query
+      ↓
+Normalize Query
+      ↓
+Check Order Keywords
+      ↓
+Check Policy Keywords
+      ↓
+Check Product Keywords
+      ↓
+Otherwise General
+      ↓
+Return Route
+
+
+Examples:
+
+"I want oxidized jewellery"
+        ↓
+PRODUCT
+
+"Show me earrings under 300"
+        ↓
+PRODUCT
+
+"What is your return policy?"
+        ↓
+POLICY
+
+"Can I get a refund?"
+        ↓
+POLICY
+
+"Where is my order?"
+        ↓
+ORDER
+
+"Hello"
+        ↓
+GENERAL
+
+
+Purpose:
+
+The router decides which backend
+should handle the customer query.

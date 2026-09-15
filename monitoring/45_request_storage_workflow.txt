@@ -1,0 +1,40 @@
+============================================================
+ZYRA LUXE - REQUEST STORAGE WORKFLOW
+============================================================
+
+Request Tracker
+      ↓
+Request Data
+      ↓
+Request Storage
+      ↓
+JSON File
+      ↓
+data/monitoring/requests.json
+
+
+Stored Information
+------------------
+
+Request ID
+Provider
+Model
+Success / Failure
+Response Time
+
+
+Important
+---------
+
+File 42:
+In-memory tracking
+
+File 45:
+Persistent JSON storage
+
+
+Server Restart
+      ↓
+JSON file remains
+      ↓
+Previous request data can be loaded

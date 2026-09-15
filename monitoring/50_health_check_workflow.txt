@@ -1,0 +1,39 @@
+============================================================
+ZYRA LUXE - HEALTH CHECK WORKFLOW
+============================================================
+
+HealthChecker
+      ↓
+Check Services
+      ↓
+ ┌─────────────────────────────┐
+ │ Gemini                      │
+ │ Groq                        │
+ │ OpenRouter                  │
+ │ OpenAI                      │
+ │ Pinecone                    │
+ └─────────────────────────────┘
+      ↓
+Service Status
+      ↓
+Overall System Status
+
+
+Possible Status
+---------------
+
+healthy
+unhealthy
+
+
+Example
+-------
+
+Gemini      → healthy
+Groq        → healthy
+OpenRouter  → healthy
+OpenAI      → healthy
+Pinecone    → healthy
+
+Overall
+→ healthy

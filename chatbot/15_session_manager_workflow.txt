@@ -1,0 +1,70 @@
+============================================================
+ZYRA LUXE - SESSION MANAGER WORKFLOW
+============================================================
+
+User
+ ↓
+Session ID
+ ↓
+Create / Find Session
+ ↓
+Add User Message
+ ↓
+Add Assistant Message
+ ↓
+Conversation History
+
+
+Example
+-------
+
+Session ID:
+user-001
+
+        ↓
+
+User:
+Can I return an item?
+
+        ↓
+
+Assistant:
+Yes, you can request a return within 2 hours.
+
+        ↓
+
+User:
+What about sale items?
+
+        ↓
+
+Assistant:
+Sale items are non-returnable.
+
+
+Internal Structure
+------------------
+
+sessions
+   |
+   +-- user-001
+   |      |
+   |      +-- user message
+   |      +-- assistant message
+   |      +-- user message
+   |      +-- assistant message
+   |
+   +-- user-002
+          |
+          +-- separate conversation
+
+
+Important
+---------
+
+Different users must have
+different sessions.
+
+Session ID
+   ↓
+Conversation Isolation

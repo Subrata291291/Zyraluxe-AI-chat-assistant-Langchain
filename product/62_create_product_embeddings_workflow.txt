@@ -1,0 +1,44 @@
+============================================================
+FILE 62 - PRODUCT EMBEDDING CREATION
+============================================================
+
+INPUT
+-----
+data/products/product_embedding_records.json
+
+
+PROCESS
+-------
+1. Load product embedding records
+2. Extract searchable text
+3. Send texts to Gemini Embedding model
+4. Generate vector embeddings
+5. Attach vectors to product records
+6. Save embedding records
+
+
+MODEL
+-----
+gemini-embedding-001
+
+
+OUTPUT
+------
+data/products/product_embeddings.json
+
+
+DATA FLOW
+---------
+Product Text
+     |
+     v
+Gemini Embedding Model
+     |
+     v
+Vector
+     |
+     v
+Product Embedding Record
+     |
+     v
+JSON File

@@ -1,0 +1,113 @@
+==================================================
+FILE 90 - UNIFIED ZYRA CHAT API
+==================================================
+
+Goal:
+Create one API endpoint for the complete
+Zyra Luxe AI Assistant.
+
+Endpoint:
+
+POST /api/chat
+
+
+Request:
+
+{
+    "message": "Show me oxidized earrings under 300"
+}
+
+
+Flow:
+
+Frontend
+   ↓
+POST /api/chat
+   ↓
+ChatRequest
+   ↓
+ZyraAssistantOrchestrator
+   ↓
+Query Router
+   ↓
+PRODUCT / POLICY / ORDER / GENERAL
+
+
+Product example:
+
+User:
+Show me oxidized earrings under 300
+
+   ↓
+
+PRODUCT
+
+   ↓
+
+Product Search
+
+   ↓
+
+Product Response
+
+
+Policy example:
+
+User:
+What is your return policy?
+
+   ↓
+
+POLICY
+
+   ↓
+
+Policy RAG
+
+   ↓
+
+Answer
+
+
+Order example:
+
+User:
+Where is my order?
+
+   ↓
+
+ORDER
+
+   ↓
+
+Order Tracking
+
+   ↓
+
+Ask for Order ID
+
+
+User:
+1177
+
+   ↓
+
+WooCommerce API
+
+   ↓
+
+Order Result
+
+
+General example:
+
+User:
+Hello
+
+   ↓
+
+GENERAL
+
+   ↓
+
+General Response

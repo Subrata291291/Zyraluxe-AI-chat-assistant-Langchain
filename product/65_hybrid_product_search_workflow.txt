@@ -1,0 +1,95 @@
+============================================================
+FILE 65 - HYBRID PRODUCT SEARCH
+============================================================
+
+INPUT
+-----
+Customer natural-language query
+
+
+STEP 1
+------
+LLM parses customer query.
+
+
+STEP 2
+------
+Extract structured filters:
+
+category
+max_price
+in_stock
+
+
+STEP 3
+------
+Create semantic embedding from
+the complete customer query.
+
+
+STEP 4
+------
+Search Pinecone products namespace.
+
+
+STEP 5
+------
+Search structured product data
+using price, category and stock filters.
+
+
+STEP 6
+------
+Compare semantic results with
+structured results.
+
+
+STEP 7
+------
+Keep products that satisfy
+the structured filters.
+
+
+STEP 8
+------
+Return products ordered by
+semantic similarity score.
+
+
+ARCHITECTURE
+------------
+Customer Query
+      |
+      +----------------------+
+      |                      |
+      v                      v
+LLM Query Parser       Semantic Search
+      |                      |
+      v                      v
+Structured Filters     Pinecone Results
+      |                      |
+      v                      |
+products.json                 |
+      |                      |
+      +----------+-----------+
+                 |
+                 v
+          Hybrid Results
+
+
+IMPORTANT
+---------
+Semantic search determines relevance.
+
+Structured product data determines:
+
+- Price
+- Stock
+- Category
+
+
+PINECONE
+--------
+Index: zyra-luxe-knowledge
+
+Namespace: products

@@ -1,0 +1,51 @@
+============================================================
+ZYRA LUXE - MONITORING DASHBOARD WORKFLOW
+============================================================
+
+requests.json
+      │
+      ├── Total Requests
+      ├── Successful
+      ├── Failed
+      ├── Success Rate
+      ├── Average Response Time
+      └── Provider Usage
+      │
+      ▼
+Monitoring Dashboard
+      ▲
+      │
+errors.json
+      │
+      ├── Total Errors
+      ├── Error Types
+      └── Provider Errors
+
+
+Dashboard Summary
+-----------------
+
+Requests
+--------
+Total
+Successful
+Failed
+Success Rate
+Average Response Time
+
+
+Providers
+---------
+
+Gemini
+Groq
+OpenRouter
+OpenAI
+
+
+Errors
+------
+
+Total Errors
+Error Types
+Provider Errors

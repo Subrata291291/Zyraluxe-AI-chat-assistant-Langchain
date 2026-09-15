@@ -1,0 +1,67 @@
+==================================================
+FILE 87 - SMART ORDER ID EXTRACTION
+==================================================
+
+Goal:
+Extract an Order ID from natural customer
+messages.
+
+
+Examples:
+
+"My order number is 1177"
+        ↓
+1177
+
+
+"Can you check order #1177?"
+        ↓
+1177
+
+
+"Please track order 1177"
+        ↓
+1177
+
+
+"#1177"
+        ↓
+1177
+
+
+"1177"
+        ↓
+1177
+
+
+"Where is my order?"
+        ↓
+None
+
+
+Method:
+
+Regular Expression
++
+Numeric input detection
+
+
+Output:
+
+Integer Order ID
+or
+None
+
+
+Why separate this file?
+
+Order ID extraction is a separate responsibility.
+
+File 87:
+Extract Order ID
+
+File 85:
+Handle order query
+
+File 84:
+Call WooCommerce API

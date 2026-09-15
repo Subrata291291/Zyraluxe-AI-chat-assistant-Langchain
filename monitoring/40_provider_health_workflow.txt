@@ -1,0 +1,48 @@
+============================================================
+ZYRA LUXE - PROVIDER HEALTH TRACKING
+============================================================
+
+LLM Provider
+     ↓
+Request
+     ↓
+ ┌───────────────┐
+ │ Success       │
+ │ Failure       │
+ │ Fallback      │
+ └───────────────┘
+     ↓
+Provider Health
+     ↓
+Statistics
+
+
+Tracked Metrics
+---------------
+
+Success
+-------
+Number of successful responses.
+
+Failures
+--------
+Number of failed requests.
+
+Fallbacks
+---------
+Number of times another provider
+was needed after this provider failed.
+
+
+Example
+-------
+
+Gemini
+  Success: 8
+  Failures: 3
+  Fallbacks: 3
+
+Groq
+  Success: 5
+  Failures: 1
+  Fallbacks: 1

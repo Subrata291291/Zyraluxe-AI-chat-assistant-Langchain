@@ -1,0 +1,41 @@
+==================================================
+FILE 81 - ZYRA LUXE ASSISTANT ORCHESTRATOR
+==================================================
+
+Goal:
+Create the central routing layer of the assistant.
+
+Input:
+Customer query
+
+Process:
+
+Customer
+    ↓
+Query Router
+    ↓
++-----------+-----------+-----------+
+|           |           |           |
+PRODUCT    POLICY      ORDER      GENERAL
+|           |           |           |
+Product     RAG        Live       LLM
+Search                 API
+|           |           |           |
++-----------+-----------+-----------+
+            ↓
+     Unified Response
+
+PRODUCT:
+Uses structured product data.
+
+POLICY:
+Uses existing knowledge/RAG system.
+
+ORDER:
+Reserved for live order integration.
+
+GENERAL:
+Uses general conversation LLM.
+
+Important:
+Do not invent policy or order information.

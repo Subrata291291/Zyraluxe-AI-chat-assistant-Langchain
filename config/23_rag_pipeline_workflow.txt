@@ -1,0 +1,49 @@
+============================================================
+ZYRA LUXE - RAG PIPELINE WORKFLOW
+============================================================
+
+18_config.py
+      ↓
+22_rag_service_factory.py
+      ↓
+Create Components
+      |
+      +-- Gemini LLM
+      +-- Gemini Embeddings
+      +-- Pinecone
+      ↓
+23_rag_pipeline.py
+      ↓
+User Question
+      ↓
+Retrieve Context
+      ↓
+Score Filtering
+      ↓
+Duplicate Removal
+      ↓
+Context Compression
+      ↓
+Gemini
+      ↓
+Answer
+      +
+Sources
+      ↓
+User
+
+
+Main Functions
+--------------
+
+retrieve_context()
+        ↓
+Pinecone Retrieval
+
+generate_answer()
+        ↓
+Gemini Generation
+
+run_pipeline()
+        ↓
+Complete RAG Flow

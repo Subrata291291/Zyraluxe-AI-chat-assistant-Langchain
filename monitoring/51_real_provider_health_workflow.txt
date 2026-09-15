@@ -1,0 +1,59 @@
+============================================================
+ZYRA LUXE - REAL PROVIDER HEALTH CHECK WORKFLOW
+============================================================
+
+Start
+  ↓
+Load .env
+  ↓
+Check Gemini API
+  ↓
+Check Groq API
+  ↓
+Check OpenRouter API
+  ↓
+Check OpenAI API
+  ↓
+Check Pinecone API
+  ↓
+Collect Results
+  ↓
+HEALTHY / UNHEALTHY
+
+
+LLM Provider Check
+------------------
+
+Create LLM
+     ↓
+Send small test request
+     ↓
+API Response
+     ↓
+Healthy / Unhealthy
+
+
+Pinecone Check
+--------------
+
+Connect to Pinecone
+     ↓
+List Indexes
+     ↓
+API Response
+     ↓
+Healthy / Unhealthy
+
+
+Important
+---------
+
+This is a real connectivity check.
+
+It uses actual API credentials
+from .env.
+
+LLM providers receive a small
+test prompt.
+
+Do not expose API keys in output.

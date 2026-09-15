@@ -1,0 +1,46 @@
+============================================================
+ZYRA LUXE - ERROR METRICS WORKFLOW
+============================================================
+
+errors.json
+     ↓
+Load Stored Errors
+     ↓
+ErrorMetrics
+     ↓
+Calculate
+     ↓
+ ┌──────────────────────────┐
+ │ Total Errors             │
+ │ Error Type Usage         │
+ │ Provider Failures        │
+ │ Model Failures           │
+ └──────────────────────────┘
+     ↓
+Error Summary
+
+
+Example
+-------
+
+Total Errors: 10
+
+Error Type Usage
+----------------
+rate_limit: 5
+timeout: 2
+service_unavailable: 2
+authentication: 1
+
+
+Provider Failures
+-----------------
+gemini: 6
+groq: 3
+openrouter: 1
+
+
+Model Failures
+--------------
+gemini-3.5-flash: 6
+openai/gpt-oss-20b: 3

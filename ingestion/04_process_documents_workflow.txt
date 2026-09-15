@@ -1,0 +1,43 @@
+============================================================
+ZYRA LUXE - DOCUMENT PROCESSING WORKFLOW
+============================================================
+
+pages_raw.json
+       ↓
+Read JSON
+       ↓
+Create LangChain Document
+       ↓
+Add Metadata
+       ↓
+Validate Content
+       ↓
+Save Processed Documents
+       ↓
+data/policies/documents.json
+
+
+Document Structure
+------------------
+
+Document
+   |
+   +── page_content
+   |
+   └── metadata
+       ├── page_type
+       ├── title
+       └── url
+
+
+NEXT PHASE
+----------
+documents.json
+       ↓
+Chunking
+       ↓
+Embeddings
+       ↓
+Pinecone
+       ↓
+RAG

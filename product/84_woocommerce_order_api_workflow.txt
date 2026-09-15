@@ -1,0 +1,46 @@
+==================================================
+FILE 84 - WOOCOMMERCE ORDER API
+==================================================
+
+Goal:
+Connect Zyra Luxe AI Assistant with the
+WooCommerce order system.
+
+Input:
+Order ID
+
+Process:
+
+Customer
+   ↓
+Order ID
+   ↓
+WooCommerce REST API
+   ↓
+Order
+   ↓
+Status
+Total
+Date
+Payment Method
+
+
+Credentials:
+
+WOOCOMMERCE_CONSUMER_KEY
+WOOCOMMERCE_CONSUMER_SECRET
+
+
+Security:
+
+Credentials must stay inside .env.
+
+Never hard-code API credentials.
+
+
+Current responsibility:
+
+File 84 only retrieves an order.
+
+Customer-friendly order responses
+will be added later.

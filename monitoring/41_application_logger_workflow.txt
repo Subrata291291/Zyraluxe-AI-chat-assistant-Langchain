@@ -1,0 +1,43 @@
+============================================================
+ZYRA LUXE - APPLICATION LOGGER WORKFLOW
+============================================================
+
+Application Event
+       ↓
+Python Logger
+       ↓
+ ┌───────────────┐
+ │ Console       │
+ │ Log File      │
+ └───────────────┘
+
+
+Log Levels
+----------
+
+INFO
+Normal application events.
+
+WARNING
+Something unexpected but
+application can continue.
+
+ERROR
+Something failed.
+
+
+Example
+-------
+
+INFO    User request received
+INFO    Gemini request started
+ERROR   Gemini rate limit
+INFO    Falling back to Groq
+INFO    Groq response received
+
+
+Log Location
+------------
+
+logs/
+└── zyra_luxe.log

@@ -1,0 +1,78 @@
+==================================================
+FILE 89 - UPDATE ZYRA ORCHESTRATOR
+==================================================
+
+Goal:
+Integrate the complete conversational order tracking
+system into the main Zyra Luxe assistant.
+
+Components:
+
+File 80
+Query Router
+
+File 76
+Product Response
+
+File 82
+Policy RAG
+
+File 88
+Integrated Order Tracking
+
+
+Architecture:
+
+User
+ ↓
+Zyra Assistant Orchestrator
+ ↓
+Query Router
+ ↓
+ ┌──────────┬──────────┬──────────┬──────────┐
+ ↓          ↓          ↓          ↓
+PRODUCT    POLICY     ORDER     GENERAL
+ ↓          ↓          ↓          ↓
+Product    RAG       Order      General
+Search              Tracking    Response
+
+
+Order Flow:
+
+User:
+Where is my order?
+
+ ↓
+
+ORDER route
+
+ ↓
+
+File 88
+
+ ↓
+
+Ask for Order ID
+
+
+User:
+1177
+
+ ↓
+
+File 87
+Extract Order ID
+
+ ↓
+
+File 85
+Order Handler
+
+ ↓
+
+File 84
+WooCommerce API
+
+ ↓
+
+Live Order Result

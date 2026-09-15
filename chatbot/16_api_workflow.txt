@@ -1,0 +1,57 @@
+============================================================
+ZYRA LUXE - FASTAPI WORKFLOW
+============================================================
+
+Frontend
+   ↓
+HTTP POST
+   ↓
+/chat
+   ↓
+FastAPI
+   ↓
+Pydantic Validation
+   ↓
+ChatRequest
+   ↓
+Chat Processing
+   ↓
+ChatResponse
+   ↓
+JSON
+   ↓
+Frontend
+
+
+Request
+-------
+
+{
+    "session_id": "user-001",
+    "message": "Can I return an item?"
+}
+
+
+Response
+--------
+
+{
+    "session_id": "user-001",
+    "answer": "..."
+}
+
+
+Endpoints
+---------
+
+GET /
+    ↓
+API information
+
+GET /health
+    ↓
+Health check
+
+POST /chat
+    ↓
+Chat request

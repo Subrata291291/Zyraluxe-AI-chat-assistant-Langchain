@@ -1,0 +1,73 @@
+==================================================
+FILE 83 - UPDATE ZYRA ASSISTANT ORCHESTRATOR
+==================================================
+
+Goal:
+Replace the Policy placeholder in File 81
+with the real Policy RAG from File 82.
+
+
+Previous:
+
+POLICY
+  ↓
+Placeholder response
+
+
+Now:
+
+POLICY
+  ↓
+File 82
+  ↓
+Policy RAG
+  ↓
+Pinecone
+  ↓
+Relevant policy chunks
+  ↓
+LLM
+  ↓
+Answer
+
+
+Product:
+
+PRODUCT
+  ↓
+File 76
+  ↓
+Product API Response
+
+
+Order:
+
+ORDER
+  ↓
+Placeholder
+
+Live order integration will be added later.
+
+
+General:
+
+GENERAL
+  ↓
+Greeting
+
+
+Final architecture:
+
+Customer
+   ↓
+Query Router
+   ↓
++----------+----------+----------+----------+
+|          |          |          |
+PRODUCT   POLICY     ORDER     GENERAL
+|          |          |          |
+File 76   File 82   Future     Greeting
+|          |
+Product    RAG
+Search     |
+           Pinecone

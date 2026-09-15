@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Zyra Luxe Product Search Test</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 20px;
+            cursor: pointer;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .stock {
+            margin-bottom: 10px;
+        }
+
+        .view-product {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .status {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Zyra Luxe AI Product Search</h1>
+
+    <div class="search-box">
+
+        <input
+            id="query"
+            type="text"
+            placeholder="Example: I want oxidized jewellery"
+        >
+
+        <button onclick="searchProducts()">
+            Search
+        </button>
+
+    </div>
+
+    <div id="status" class="status"></div>
+
+    <div id="products" class="products"></div>
+
+
+    <script>
+
+        async function searchProducts() {
+
+            const query = document
+                .getElementById("query")
+                .value
+                .trim();
+
+            const status = document
+                .getElementById("status");
+
+            const productsContainer = document
+                .getElementById("products");
+
+            if (!query) {
+                status.textContent = "Please enter a product request.";
+                return;
+            }
+
+            status.textContent = "Searching...";
+            productsContainer.innerHTML = "";
+
+            try {
+
+                const response = await fetch(
+                    "http://127.0.0.1:8000/api/chat",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            message: query
+                        })
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `HTTP error: ${response.status}`
+                    );
+                }
+
+                const data = await response.json();
+
+                status.textContent =
+                    `${data.product_count} products found`;
+
+                renderProducts(data.products);
+
+            } catch (error) {
+
+                console.error(error);
+
+                status.textContent =
+                    "Unable to connect to product API.";
+
+            }
+        }
+
+
+        function renderProducts(products) {
+
+            const container =
+                document.getElementById("products");
+
+            container.innerHTML = "";
+
+            products.forEach(product => {
+
+                const card =
+                    document.createElement("div");
+
+                card.className = "card";
+
+                card.innerHTML = `
+
+                    <img
+                        src="${product.image}"
+                        alt="${product.name}"
+                    >
+
+                    <div class="card-content">
+
+                        <h3>
+                            ${product.name}
+                        </h3>
+
+                        <div class="price">
+                            ₹${product.price ?? "N/A"}
+                        </div>
+
+                        <div class="stock">
+                            ${product.stock_label}
+                        </div>
+
+                        <div>
+                            ${product.categories.join(", ")}
+                        </div>
+
+                        <a
+                            class="view-product"
+                            href="${product.url}"
+                            target="_blank"
+                        >
+                            View Product
+                        </a>
+
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>

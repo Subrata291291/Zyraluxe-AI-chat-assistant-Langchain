@@ -1,0 +1,37 @@
+============================================================
+ZYRA LUXE - PIPELINE VALIDATION WORKFLOW
+============================================================
+
+Test Cases
+      ↓
+Load Config
+      ↓
+Create Components
+      ↓
+Run RAG Pipeline
+      ↓
+Answer
+      ↓
+Check Keyword
+      ↓
+Check Source
+      ↓
+PASS / FAIL
+      ↓
+Final Report
+
+
+Validation Rules
+----------------
+
+✓ Answer contains expected keyword
+
+✓ At least one source exists
+
+If both are true
+        ↓
+PASS
+
+Otherwise
+        ↓
+FAIL

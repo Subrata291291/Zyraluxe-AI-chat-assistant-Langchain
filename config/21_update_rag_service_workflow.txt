@@ -1,0 +1,64 @@
+============================================================
+ZYRA LUXE - CONFIGURED RAG SERVICE WORKFLOW
+============================================================
+
+.env
+ ↓
+18_config.py
+ ↓
+21_update_rag_service.py
+ ↓
+Load Centralized Configuration
+ ↓
+Create Embedding Model
+ ↓
+Create Gemini LLM
+ ↓
+Connect Pinecone
+ ↓
+Retrieve Context
+ ↓
+Generate Answer
+ ↓
+Create Sources
+ ↓
+Return Result
+
+
+Before
+------
+
+19_rag_service.py
+     |
+     +-- LLM model
+     +-- Embedding model
+     +-- Index name
+     +-- Namespace
+     +-- Top K
+     +-- Score threshold
+
+
+After
+-----
+
+18_config.py
+     |
+     +-- LLM model
+     +-- Embedding model
+     +-- Index name
+     +-- Namespace
+     +-- Top K
+     +-- Score threshold
+     |
+     ↓
+21_update_rag_service.py
+
+
+Benefit
+-------
+
+Configuration changes
+        ↓
+One central file
+        ↓
+All services use same settings

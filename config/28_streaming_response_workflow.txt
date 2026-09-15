@@ -1,0 +1,54 @@
+============================================================
+ZYRA LUXE - STREAMING RESPONSE WORKFLOW
+============================================================
+
+Question
+   +
+Context
+   ↓
+Gemini
+   ↓
+llm.stream()
+   ↓
+Chunk
+   ↓
+Chunk
+   ↓
+Chunk
+   ↓
+Chunk
+   ↓
+Complete Answer
+
+
+Normal Response
+---------------
+
+Gemini
+   ↓
+Complete Answer
+   ↓
+User
+
+
+Streaming Response
+------------------
+
+Gemini
+   ↓
+Chunk 1 → User
+Chunk 2 → User
+Chunk 3 → User
+Chunk 4 → User
+...
+Chunk N → User
+
+
+Benefit
+-------
+
+User does not need to wait
+for the complete response.
+
+The answer starts appearing
+while generation is still running.

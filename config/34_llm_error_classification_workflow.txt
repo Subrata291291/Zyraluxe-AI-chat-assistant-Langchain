@@ -1,0 +1,32 @@
+============================================================
+ZYRA LUXE - LLM ERROR CLASSIFICATION WORKFLOW
+============================================================
+
+LLM Error
+    ↓
+Error Classifier
+    ↓
+Identify Error Type
+    ↓
+┌──────────────────────────────┐
+│ Rate Limit       → Fallback  │
+│ Service Down     → Fallback  │
+│ Timeout          → Fallback  │
+│ Connection       → Fallback  │
+│ Authentication   → No        │
+│ Model Not Found  → No        │
+│ Unknown          → No        │
+└──────────────────────────────┘
+
+Purpose
+-------
+
+Do not blindly fallback for every error.
+
+Temporary provider problems
+        ↓
+Fallback
+
+Configuration / authentication problems
+        ↓
+Fix configuration

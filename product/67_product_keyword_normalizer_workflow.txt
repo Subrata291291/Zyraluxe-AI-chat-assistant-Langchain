@@ -1,0 +1,64 @@
+============================================================
+FILE 67 - PRODUCT KEYWORD NORMALIZATION
+============================================================
+
+INPUT
+-----
+Product intent query from LLM
+
+
+PROCESS
+-------
+1. Receive product query
+2. Convert text to lowercase
+3. Extract words
+4. Remove generic words
+5. Remove duplicate keywords
+6. Return meaningful product keywords
+
+
+EXAMPLE
+-------
+Input:
+oxidized jewellery
+
+Output:
+oxidized
+
+
+EXAMPLE
+-------
+Input:
+gold plated jewellery
+
+Output:
+gold
+plated
+
+
+STOP WORD EXAMPLES
+------------------
+jewellery
+jewelry
+product
+products
+item
+items
+show
+want
+need
+looking
+for
+something
+please
+
+
+PURPOSE
+-------
+Prevent overly strict keyword matching.
+
+
+NEXT STEP
+---------
+Use normalized keywords during
+hybrid product filtering.

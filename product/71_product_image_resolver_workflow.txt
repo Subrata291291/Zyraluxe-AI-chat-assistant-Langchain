@@ -1,0 +1,47 @@
+============================================================
+FILE 71 - PRODUCT IMAGE RESOLVER
+============================================================
+
+INPUT
+-----
+Product card response
+
+
+PROCESS
+-------
+1. Receive recommended products
+2. Read product URL
+3. Open product page
+4. Find WooCommerce product image
+5. Use og:image as fallback
+6. Add image URL to product card
+
+
+IMAGE SOURCES
+-------------
+1. WooCommerce product gallery image
+2. Open Graph image
+
+
+OUTPUT
+------
+Product card + image URL
+
+
+PRODUCT CARD
+------------
+name
+price
+in_stock
+stock_label
+categories
+tags
+description
+image
+url
+
+
+PURPOSE
+-------
+Provide complete product data
+for the existing Jewellery Assistant UI.

@@ -1,0 +1,60 @@
+============================================================
+FILE 64 - SEMANTIC PRODUCT SEARCH
+============================================================
+
+INPUT
+-----
+Customer natural-language query
+
+
+PROCESS
+-------
+1. Receive customer query
+2. Convert query into embedding
+3. Search Pinecone product namespace
+4. Calculate semantic similarity
+5. Retrieve top matching products
+6. Read product metadata
+7. Display ranked results
+
+
+EMBEDDING MODEL
+---------------
+gemini-embedding-001
+
+
+PINECONE INDEX
+--------------
+zyra-luxe-knowledge
+
+
+NAMESPACE
+---------
+products
+
+
+TOP K
+-----
+5
+
+
+SEARCH TYPE
+-----------
+Semantic Similarity Search
+
+
+DATA FLOW
+---------
+Customer Query
+      |
+      v
+Query Embedding
+      |
+      v
+Pinecone
+      |
+      v
+Semantic Similarity
+      |
+      v
+Top 5 Products

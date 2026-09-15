@@ -1,0 +1,45 @@
+============================================================
+ZYRA LUXE - QUERY ROUTER WORKFLOW
+============================================================
+
+User Query
+     ↓
+Normalize Query
+     ↓
+Check Intent
+     ↓
+┌──────────┬──────────┬──────────┬──────────┐
+↓          ↓          ↓          ↓
+Product   Policy     Order     General
+↓          ↓          ↓          ↓
+Product   Pinecone   Live API   General
+Search    Retrieval  Lookup     Response
+
+
+Examples
+--------
+
+"Show me earrings"
+        ↓
+Product
+
+"Can I return this?"
+        ↓
+Policy
+
+"Where is my order?"
+        ↓
+Order
+
+"Hello"
+        ↓
+General
+
+
+Important
+---------
+
+Router decides which system
+should handle the query.
+
+It does not answer the query.

@@ -1,0 +1,45 @@
+==================================================
+FILE 85 - ORDER QUERY HANDLER
+==================================================
+
+Goal:
+Convert customer order queries into
+WooCommerce order lookups.
+
+Input examples:
+
+Where is my order?
+1177
+985
+
+
+Process:
+
+Customer Query
+      ↓
+Order Query Handler
+      ↓
+Extract Order ID
+      │
+      ├── No Order ID
+      │       ↓
+      │   Ask customer
+      │
+      └── Order ID found
+              ↓
+       WooCommerce API
+              ↓
+       ┌──────┴──────┐
+       ▼             ▼
+   Found          Not Found
+       ↓             ↓
+   Order data     Error message
+
+
+File dependency:
+
+File 85
+   ↓
+File 84
+   ↓
+WooCommerce REST API

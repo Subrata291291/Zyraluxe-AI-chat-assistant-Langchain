@@ -1,0 +1,32 @@
+============================================================
+FILE 56 - SEARCH + RANKING WORKFLOW
+============================================================
+
+Purpose:
+Combine product search and product ranking.
+
+Input:
+Customer search filters.
+
+Process:
+
+Customer Filters
+      ↓
+ProductSearch
+      ↓
+Matching Products
+      ↓
+ProductRanking
+      ↓
+Ranked Products
+      ↓
+Top Products
+
+Example:
+
+Category: earrings
+Maximum Price: ₹300
+Stock: True
+
+Output:
+Best matching products first.

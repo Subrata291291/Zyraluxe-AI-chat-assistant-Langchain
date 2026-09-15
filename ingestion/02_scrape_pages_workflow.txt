@@ -1,0 +1,28 @@
+============================================================
+ZYRA LUXE - KNOWLEDGE PAGE SCRAPING
+============================================================
+
+Knowledge Page URLs
+        ↓
+HTTP Request
+        ↓
+HTML
+        ↓
+BeautifulSoup
+        ↓
+Extract Main Content
+        ↓
+Clean Text
+        ↓
+Add Metadata
+        ↓
+Save JSON
+        ↓
+data/raw/pages_raw.json
+
+
+This file does NOT:
+- create embeddings
+- use Pinecone
+- use Gemini
+- perform RAG

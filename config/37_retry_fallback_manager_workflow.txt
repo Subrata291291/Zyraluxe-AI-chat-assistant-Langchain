@@ -1,0 +1,63 @@
+============================================================
+ZYRA LUXE - RETRY + FALLBACK MANAGER
+============================================================
+
+                  LLM Request
+                       ↓
+                     Gemini
+                       ↓
+                  Temporary Error?
+                  /             \
+                No               Yes
+                ↓                 ↓
+              Answer            Retry
+                                  ↓
+                               Retry
+                                  ↓
+                            Still failing?
+                                  ↓
+                                Groq
+                                  ↓
+                            Retry if needed
+                                  ↓
+                            OpenRouter
+                                  ↓
+                            Retry if needed
+                                  ↓
+                              OpenAI
+                                  ↓
+                               Answer
+
+
+Retry Strategy
+--------------
+
+Attempt 1
+   ↓
+wait 2 seconds
+
+Attempt 2
+   ↓
+wait 4 seconds
+
+Attempt 3
+   ↓
+next provider
+
+
+Fallback Errors
+---------------
+
+429
+503
+Timeout
+Connection
+
+
+Stop Errors
+-----------
+
+401
+403
+404
+Unknown

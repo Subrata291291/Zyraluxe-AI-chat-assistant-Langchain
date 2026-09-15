@@ -1,0 +1,47 @@
+============================================================
+ZYRA LUXE - LLM FALLBACK WORKFLOW
+============================================================
+
+User Question
+     ↓
+Primary LLM
+     ↓
+Success?
+ ┌───┴───┐
+Yes      No
+ ↓        ↓
+Answer   Fallback LLM
+          ↓
+       Success?
+       ┌───┴───┐
+      Yes      No
+       ↓        ↓
+     Answer   Error Handler
+                 ↓
+            Safe Message
+
+
+Purpose
+-------
+
+Prevent a single LLM failure from stopping
+the entire chatbot.
+
+Primary LLM
+-----------
+
+Main model used for answering.
+
+Fallback LLM
+------------
+
+Backup model used when primary fails.
+
+Production Goal
+---------------
+
+Primary LLM
+     ↓
+Different LLM Provider
+     ↓
+Safe Error Handler

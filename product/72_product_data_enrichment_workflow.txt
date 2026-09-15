@@ -1,0 +1,36 @@
+==================================================
+FILE 72 - PRODUCT DATA ENRICHMENT
+==================================================
+
+Goal:
+Permanently add image URLs to product data.
+
+Input:
+data/products/products.json
+
+Process:
+1. Load all products.
+2. Read each product URL.
+3. Use File 71 image resolver.
+4. Extract product image URL.
+5. Add image field.
+6. Save enriched product data.
+
+Output:
+data/products/products_enriched.json
+
+Example:
+
+{
+    "name": "Antique Designer Oxidized Jhumka",
+    "price": 120.0,
+    "in_stock": true,
+    "categories": ["Oxidised Jhumka"],
+    "tags": ["earrings"],
+    "description": "...",
+    "url": "https://zyraluxe.in/...",
+    "image": "https://zyraluxe.in/wp-content/uploads/..."
+}
+
+Important:
+Original products.json is not modified.

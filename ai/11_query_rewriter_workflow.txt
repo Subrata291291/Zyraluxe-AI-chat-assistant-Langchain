@@ -1,0 +1,48 @@
+============================================================
+ZYRA LUXE - QUERY REWRITER WORKFLOW
+============================================================
+
+User Query
+     ↓
+Check Simple Known Query
+     ↓
+┌───────────────┬────────────────┐
+│ Yes           │ No             │
+↓               ↓
+Rule Rewrite    Gemini Rewrite
+│               │
+└───────┬───────┘
+        ↓
+Search Query
+        ↓
+Pinecone
+
+
+Fallback
+--------
+
+Gemini API Error
+       ↓
+Use Original Query
+       ↓
+Continue Retrieval
+
+
+Examples
+--------
+
+"refund how long?"
+        ↓
+"Zyra Luxe refund processing time"
+
+
+"can I send it back?"
+        ↓
+"Zyra Luxe return policy"
+
+
+"came broken"
+        ↓
+Gemini Rewrite
+        ↓
+Possible improved search query

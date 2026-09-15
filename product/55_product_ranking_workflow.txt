@@ -1,0 +1,32 @@
+============================================================
+FILE 55 - PRODUCT RANKING WORKFLOW
+============================================================
+
+Purpose:
+Rank matching Zyra Luxe products.
+
+Input:
+Products returned by ProductSearch.
+
+Ranking factors:
+1. Lower price
+2. In-stock availability
+3. Search relevance
+
+Current version:
+Use simple rule-based ranking.
+
+Flow:
+
+Product Search
+      ↓
+Matching Products
+      ↓
+Product Ranking
+      ↓
+Sorted Products
+      ↓
+Top Products
+
+Output:
+Ranked product list

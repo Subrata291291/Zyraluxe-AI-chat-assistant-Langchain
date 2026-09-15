@@ -1,0 +1,68 @@
+============================================================
+FILE 70 - PRODUCT CARD RESPONSE
+============================================================
+
+INPUT
+-----
+Customer natural-language query
+
+
+PROCESS
+-------
+1. Receive customer query
+2. Run recommendation engine
+3. Get recommended products
+4. Remove internal ranking information
+5. Create frontend-friendly product cards
+6. Return structured response
+
+
+PRODUCT CARD FIELDS
+-------------------
+name
+price
+in_stock
+stock_label
+categories
+tags
+description
+url
+
+
+INTERNAL DATA HIDDEN
+--------------------
+semantic score
+ranking score
+provider
+parser details
+
+
+OUTPUT
+------
+{
+    "query": "...",
+    "products": [
+        {
+            "name": "...",
+            "price": 120,
+            "in_stock": true,
+            "stock_label": "In Stock",
+            "categories": [],
+            "tags": [],
+            "description": "...",
+            "url": "..."
+        }
+    ]
+}
+
+
+PURPOSE
+-------
+Provide clean product data for
+the existing Jewellery Assistant UI.
+
+
+FRONTEND
+--------
+The frontend can use this response
+to render product cards.

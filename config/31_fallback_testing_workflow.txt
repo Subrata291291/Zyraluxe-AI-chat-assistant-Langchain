@@ -1,0 +1,25 @@
+============================================================
+ZYRA LUXE - FALLBACK TEST WORKFLOW
+============================================================
+
+Test Question
+      ↓
+Invalid Gemini Model
+      ↓
+Gemini ❌
+      ↓
+Groq
+      ↓
+Groq Success?
+   ↓          ↓
+  Yes         No
+   ↓          ↓
+ Answer    OpenRouter
+              ↓
+        OpenRouter Success?
+          ↓          ↓
+         Yes         No
+          ↓          ↓
+       Answer      OpenAI
+                     ↓
+                  Answer

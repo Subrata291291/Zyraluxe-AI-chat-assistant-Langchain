@@ -1,0 +1,49 @@
+============================================================
+ZYRA LUXE - TRACKING + LOGGER WORKFLOW
+============================================================
+
+User Request
+     ↓
+Generate Request ID
+     ↓
+Start Timer
+     ↓
+Log Request Started
+     ↓
+LLM Provider
+     ↓
+Response
+     ↓
+Stop Timer
+     ↓
+Record Provider + Model
+     ↓
+Record Success / Failure
+     ↓
+Record Response Time
+     ↓
+Log Request Completed
+     ↓
+logs/zyra_luxe.log
+
+
+Tracked Information
+-------------------
+
+Request ID
+Provider
+Model
+Success / Failure
+Response Time
+
+
+Example Log
+-----------
+
+Request started
+request_id=xxxx
+
+Request completed
+provider=groq
+model=openai/gpt-oss-20b
+response_time=1.001s

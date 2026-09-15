@@ -1,0 +1,66 @@
+============================================================
+FILE 66 - HYBRID SEARCH FILTER
+============================================================
+
+INPUT
+-----
+Customer natural-language query
+
+
+PROCESS
+-------
+1. Parse customer query with LLM
+2. Extract category
+3. Extract price limit
+4. Extract stock requirement
+5. Extract important keyword
+6. Filter structured product data
+7. Apply keyword matching
+8. Perform semantic search
+9. Match semantic results with filtered products
+10. Return final ranked products
+
+
+STRUCTURED FILTERS
+------------------
+Category
+Price
+Stock
+
+
+KEYWORD FILTER
+--------------
+Product name
+Description
+Tags
+
+
+SEMANTIC SEARCH
+---------------
+Pinecone product namespace
+
+
+FINAL RESULT
+------------
+Relevant
++ Price-valid
++ Stock-valid
++ Category-valid
++ Keyword-valid
+products
+
+
+DATA SOURCES
+------------
+products.json
++
+Pinecone
+
+
+OUTPUT
+------
+Product name
+Price
+Stock
+Semantic score
+URL

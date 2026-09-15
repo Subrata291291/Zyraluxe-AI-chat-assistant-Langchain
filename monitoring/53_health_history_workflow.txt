@@ -1,0 +1,47 @@
+============================================================
+ZYRA LUXE - HEALTH HISTORY WORKFLOW
+============================================================
+
+Real Health Check
+       ↓
+Health Results
+       ↓
+HealthHistory
+       ↓
+health_history.json
+       ↓
+Historical Health Data
+
+
+Stored Information
+------------------
+
+Timestamp
+
+Gemini
+Groq
+OpenRouter
+OpenAI
+Pinecone
+
+Status
+Message
+
+
+Example
+-------
+
+2026-09-15 11:30
+
+Gemini → unhealthy
+Groq → healthy
+OpenRouter → healthy
+OpenAI → unhealthy
+Pinecone → healthy
+
+
+Purpose
+-------
+
+Keep historical health information
+in structured JSON format.

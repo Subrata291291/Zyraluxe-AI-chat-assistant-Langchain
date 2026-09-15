@@ -1,0 +1,33 @@
+============================================================
+FILE 61 - PRODUCT EMBEDDING PREPARATION WORKFLOW
+============================================================
+
+Purpose:
+Prepare structured product data for semantic search.
+
+Input:
+data/products/products.json
+
+Process:
+
+Product JSON
+      ↓
+Select searchable fields
+      ↓
+Combine product information
+      ↓
+Create searchable text
+      ↓
+Prepare embedding records
+
+Searchable fields:
+
+- Product name
+- Categories
+- Tags
+- Description
+
+Do NOT use price or stock as semantic content.
+
+Output:
+data/products/product_embedding_records.json

@@ -1,0 +1,46 @@
+============================================================
+ZYRA LUXE - LLM PROVIDER MANAGER WORKFLOW
+============================================================
+
+Application
+     ↓
+LLM Provider Manager
+     ↓
+Provider 1: Gemini
+     ↓
+Success?
+ ┌───┴───┐
+Yes      No
+ ↓        ↓
+Answer   Provider 2: Groq
+          ↓
+       Success?
+       ┌───┴───┐
+      Yes      No
+       ↓        ↓
+     Answer   Provider 3: OpenRouter
+                  ↓
+               Success?
+               ┌───┴───┐
+              Yes      No
+               ↓        ↓
+             Answer   Provider 4: OpenAI
+                          ↓
+                       Success?
+                       ↓      ↓
+                      Yes     No
+                       ↓       ↓
+                    Answer   Failure
+
+Purpose
+-------
+
+Keep all LLM provider logic in one reusable component.
+
+RAG Pipeline
+     ↓
+LLMProviderManager
+     ↓
+Provider selection + fallback
+     ↓
+Answer

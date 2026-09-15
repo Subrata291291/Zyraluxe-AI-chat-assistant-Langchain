@@ -1,0 +1,69 @@
+==================================================
+FILE 88 - INTEGRATED CONVERSATIONAL ORDER TRACKING
+==================================================
+
+Goal:
+Combine smart order ID extraction, conversation state,
+order query handling, and WooCommerce API.
+
+Flow:
+
+User Message
+     ↓
+Smart Order ID Extractor
+     ↓
+Order Query Handler
+     ↓
+WooCommerce Order API
+     ↓
+Order Result
+
+
+Conversation Flow:
+
+User:
+Where is my order?
+
+System:
+Order ID required.
+
+System:
+Please provide your order ID.
+
+User:
+1177
+
+System:
+Extract order ID → 1177
+
+System:
+Call WooCommerce API
+
+System:
+Order #1177 found
+
+
+Direct Natural Language:
+
+User:
+My order number is 1177
+
+System:
+Extract → 1177
+     ↓
+WooCommerce API
+     ↓
+Order #1177
+
+
+Invalid Order:
+
+User:
+My order number is 985
+
+System:
+Extract → 985
+     ↓
+WooCommerce API
+     ↓
+Order not found

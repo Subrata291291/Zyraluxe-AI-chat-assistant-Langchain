@@ -1,0 +1,38 @@
+============================================================
+ZYRA LUXE - RETRY + EXPONENTIAL BACKOFF
+============================================================
+
+LLM/API Operation
+       ↓
+     Failed
+       ↓
+    Retry #1
+       ↓
+    Wait 2 sec
+       ↓
+     Failed
+       ↓
+    Retry #2
+       ↓
+    Wait 4 sec
+       ↓
+    Success
+       ↓
+    Continue
+
+
+Delay Formula
+-------------
+
+delay = base_delay × 2^attempt
+
+Attempt 1 → 2 seconds
+Attempt 2 → 4 seconds
+Attempt 3 → 8 seconds
+
+
+Purpose
+-------
+
+Handle temporary failures before
+switching to another LLM provider.

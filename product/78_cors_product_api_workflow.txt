@@ -1,0 +1,36 @@
+==================================================
+FILE 78 - CORS PRODUCT API
+==================================================
+
+Goal:
+Make the product API accessible from a browser frontend.
+
+File 77:
+FastAPI Product API
+
+File 78:
+Adds CORS support.
+
+Flow:
+
+Frontend
+    ↓
+Browser JavaScript
+    ↓
+CORS-enabled FastAPI
+    ↓
+Product Search API
+    ↓
+Product JSON
+    ↓
+Frontend
+
+New endpoint:
+
+GET /health
+
+Purpose:
+Check API availability.
+
+Important:
+File 77 remains unchanged.

@@ -1,0 +1,64 @@
+============================================================
+ZYRA LUXE - RAG SERVICE WORKFLOW
+============================================================
+
+User Question
+      ↓
+RAGService.ask()
+      ↓
+Query Rewriting
+      ↓
+Embedding
+      ↓
+Pinecone Retrieval
+      ↓
+Score Filtering
+      ↓
+Duplicate Removal
+      ↓
+Context Compression
+      ↓
+Gemini
+      ↓
+Answer
+      +
+Sources
+      ↓
+Return Result
+
+
+Result Structure
+---------------
+
+{
+    question,
+    rewritten_query,
+    answer,
+    sources
+}
+
+
+RAGService
+----------
+
+    ask()
+      |
+      +-- rewrite_query()
+      |
+      +-- retrieve()
+      |
+      +-- generate_answer()
+      |
+      +-- create sources
+
+
+Architecture
+------------
+
+API
+ ↓
+Chat Service
+ ↓
+RAG Service
+ ↓
+Pinecone + Gemini

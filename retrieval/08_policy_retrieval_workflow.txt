@@ -1,0 +1,47 @@
+============================================================
+ZYRA LUXE - POLICY RETRIEVAL WORKFLOW
+============================================================
+
+User Question
+      ↓
+Gemini Embedding
+      ↓
+Query Vector
+      ↓
+Pinecone
+      ↓
+Cosine Similarity
+      ↓
+Top K Results
+      ↓
+Relevant Policy Chunks
+
+
+Example
+-------
+
+Question:
+"Can I return my order?"
+
+        ↓
+
+Query Embedding
+
+        ↓
+
+Pinecone Search
+
+        ↓
+
+Relevant Chunk
+
+" You may request a return within
+2 hours from the time of delivery."
+
+
+Important
+---------
+
+This file performs retrieval only.
+
+It does NOT generate the final AI answer.

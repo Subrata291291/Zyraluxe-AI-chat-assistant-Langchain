@@ -1,0 +1,38 @@
+============================================================
+ZYRA LUXE - REQUEST METRICS WORKFLOW
+============================================================
+
+Request Records
+      ↓
+RequestMetrics
+      ↓
+ ┌───────────────────────────┐
+ │ Total Requests            │
+ │ Successful Requests       │
+ │ Failed Requests           │
+ │ Success Rate              │
+ │ Average Response Time     │
+ │ Provider Usage            │
+ └───────────────────────────┘
+      ↓
+Metrics Summary
+
+
+Example
+-------
+
+Total Requests: 100
+
+Successful Requests: 94
+
+Failed Requests: 6
+
+Success Rate: 94%
+
+Average Response Time: 1.42 sec
+
+Provider Usage:
+
+Gemini: 65
+Groq: 25
+OpenRouter: 10

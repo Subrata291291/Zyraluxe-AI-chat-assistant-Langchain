@@ -1,0 +1,41 @@
+==================================================
+FILE 77 - FASTAPI PRODUCT SEARCH API
+==================================================
+
+Goal:
+Expose the product search system through an HTTP API.
+
+Endpoint:
+
+POST /products/search
+
+Request:
+
+{
+    "query": "I want oxidized jewellery"
+}
+
+Process:
+
+Frontend
+    ↓
+POST /products/search
+    ↓
+FastAPI
+    ↓
+File 76
+    ↓
+Recommendation Engine
+    ↓
+Product Data
+    ↓
+JSON Response
+    ↓
+Frontend
+
+Root endpoint:
+
+GET /
+
+Purpose:
+Check whether the API is running.

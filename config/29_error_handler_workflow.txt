@@ -1,0 +1,52 @@
+============================================================
+ZYRA LUXE - ERROR HANDLER WORKFLOW
+============================================================
+
+Application
+     ↓
+Exception
+     ↓
+Error Handler
+     ↓
+Identify Error
+     ↓
+Safe Message
+     ↓
+User
+
+
+Error Types
+-----------
+
+429
+ ↓
+Service limit message
+
+503
+ ↓
+Temporary availability message
+
+Timeout
+ ↓
+Retry message
+
+Pinecone Error
+ ↓
+Knowledge base message
+
+Unknown Error
+ ↓
+Generic safe message
+
+
+Important
+---------
+
+Never expose:
+
+API keys
+Internal paths
+Stack traces
+Raw infrastructure errors
+
+to the customer.

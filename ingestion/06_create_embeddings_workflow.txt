@@ -1,0 +1,42 @@
+============================================================
+ZYRA LUXE - EMBEDDING CREATION WORKFLOW
+============================================================
+
+chunks.json
+      ↓
+Load text chunks
+      ↓
+Gemini Embedding Model
+      ↓
+Text → Vector
+      ↓
+Store vector + text + metadata
+      ↓
+embeddings.json
+
+
+Example
+-------
+
+"Return can be requested within 2 hours"
+                ↓
+        Embedding Model
+                ↓
+     [0.021, -0.143, 0.782, ...]
+
+
+Purpose
+-------
+
+Text cannot be directly searched
+by semantic similarity.
+
+Vector representation allows:
+
+User Question
+      ↓
+Question Vector
+      ↓
+Similarity Search
+      ↓
+Relevant Chunks

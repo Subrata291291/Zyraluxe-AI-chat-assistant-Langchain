@@ -1,0 +1,42 @@
+============================================================
+FILE 60 - AI PRODUCT SEARCH WORKFLOW
+============================================================
+
+Purpose:
+Provide an end-to-end AI product search flow.
+
+Input:
+Natural language customer request.
+
+Process:
+
+Customer Query
+      ↓
+LLM Query Parser
+      ↓
+Structured Filters
+      ↓
+Product Search
+      ↓
+Product Ranking
+      ↓
+Ranked Products
+      ↓
+Customer Response
+
+Example:
+
+Customer:
+"I need oxidized earrings under 300 that are available."
+
+Filters:
+
+{
+    "query": "oxidized earrings",
+    "category": "earrings",
+    "max_price": 300,
+    "in_stock": true
+}
+
+Output:
+Ranked matching products.

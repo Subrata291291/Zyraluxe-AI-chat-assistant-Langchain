@@ -1,0 +1,34 @@
+============================================================
+ZYRA LUXE - CONFIGURED RETRY MANAGER
+============================================================
+
+18_config.py
+     ↓
+MAX_LLM_RETRIES
+RETRY_BASE_DELAY
+     ↓
+Configured Retry Manager
+     ↓
+Gemini
+     ↓
+Temporary Error?
+     ↓
+Retry
+     ↓
+Still failing?
+     ↓
+Groq
+     ↓
+OpenRouter
+     ↓
+OpenAI
+
+
+Configuration
+-------------
+
+Retry settings are controlled
+from 18_config.py.
+
+No hardcoded retry settings
+inside the manager.

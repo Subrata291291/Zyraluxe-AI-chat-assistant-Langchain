@@ -1,0 +1,62 @@
+============================================================
+ZYRA LUXE - API SESSION INTEGRATION
+============================================================
+
+Frontend
+   ↓
+POST /chat
+   ↓
+ChatRequest
+   ↓
+Session Manager
+   ↓
+Store User Message
+   ↓
+Generate Response
+   ↓
+Store Assistant Message
+   ↓
+Get Conversation History
+   ↓
+ChatResponse
+   ↓
+Frontend
+
+
+Request
+-------
+
+{
+    "session_id": "user-001",
+    "message": "Can I return an item?"
+}
+
+
+Session
+-------
+
+user-001
+   |
+   +-- User message
+   |
+   +-- Assistant message
+
+
+Response
+--------
+
+{
+    "session_id": "user-001",
+    "answer": "...",
+    "history": [...]
+}
+
+
+Important
+---------
+
+Session ID identifies
+the conversation.
+
+Different session IDs
+have separate histories.

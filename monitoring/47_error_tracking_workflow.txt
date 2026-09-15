@@ -1,0 +1,59 @@
+============================================================
+ZYRA LUXE - ERROR TRACKING WORKFLOW
+============================================================
+
+User Request
+      ↓
+Request ID
+      ↓
+LLM Provider
+      ↓
+Error
+      ↓
+Classify Error
+      ↓
+ErrorTracker
+      ↓
+errors.json
+
+
+Stored Information
+------------------
+
+Request ID
+Provider
+Model
+Error Type
+Error Message
+Timestamp
+
+
+Example
+-------
+
+Request ID:
+req-error-001
+
+Provider:
+gemini
+
+Model:
+gemini-3.5-flash
+
+Error Type:
+rate_limit
+
+Error:
+429 RESOURCE_EXHAUSTED
+
+
+Purpose
+-------
+
+Understand why requests fail.
+
+Track provider problems.
+
+Analyze recurring errors.
+
+Support debugging.

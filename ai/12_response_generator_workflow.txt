@@ -1,0 +1,47 @@
+============================================================
+ZYRA LUXE - RESPONSE GENERATOR WORKFLOW
+============================================================
+
+User Question
+      +
+Retrieved Context
+      ↓
+Build Grounded Prompt
+      ↓
+Gemini
+      ↓
+Generated Answer
+      ↓
+Customer
+
+
+Important Rule
+--------------
+
+Gemini must answer ONLY
+from the retrieved context.
+
+No context
+     ↓
+No invented answer
+
+
+Example
+-------
+
+Question:
+How long does a refund take?
+
+Context:
+Refunds will be processed within
+7–10 business days.
+
+        ↓
+
+Gemini
+
+        ↓
+
+Answer:
+Refunds are processed within
+7–10 business days.

@@ -1,0 +1,49 @@
+============================================================
+ZYRA LUXE - CONTEXT COMPRESSION WORKFLOW
+============================================================
+
+User Question
+      ↓
+Create Query Embedding
+      ↓
+Pinecone Search
+      ↓
+Top 5 Results
+      ↓
+Score Filtering
+      ↓
+Remove Empty Results
+      ↓
+Remove Duplicate Text
+      ↓
+Keep Top 2
+      ↓
+Compressed Context
+      ↓
+Future LLM Response Generation
+
+
+Configuration
+-------------
+
+TOP_K = 5
+
+Search for 5 candidates.
+
+MIN_SCORE = 0.60
+
+Ignore weak matches.
+
+MAX_CONTEXT_CHUNKS = 2
+
+Send only the best 2 chunks forward.
+
+
+Important
+---------
+
+Retrieval finds candidates.
+
+Compression reduces unnecessary context.
+
+Answer generation will happen later.

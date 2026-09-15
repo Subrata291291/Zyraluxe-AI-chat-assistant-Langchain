@@ -1,0 +1,23 @@
+============================================================
+ZYRA LUXE - PRODUCT DATA PROCESSING
+============================================================
+
+products_raw.json
+        ↓
+Read JSON
+        ↓
+Clean product fields
+        ↓
+Normalize price
+        ↓
+Normalize stock
+        ↓
+Normalize categories/tags
+        ↓
+Validate required fields
+        ↓
+Remove duplicate products
+        ↓
+Save clean JSON
+        ↓
+data/products/products.json

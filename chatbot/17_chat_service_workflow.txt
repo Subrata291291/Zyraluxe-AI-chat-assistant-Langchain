@@ -1,0 +1,71 @@
+============================================================
+ZYRA LUXE - CHAT SERVICE WORKFLOW
+============================================================
+
+API
+ ↓
+ChatService
+ ↓
+Process Message
+ ↓
+RAG Chatbot
+ ↓
+Answer + Sources
+ ↓
+ChatResult
+ ↓
+API
+
+
+ChatResult
+----------
+
+answer
+   +
+sources
+
+
+Example
+-------
+
+Question:
+How long does a refund take?
+
+        ↓
+
+ChatService
+
+        ↓
+
+RAG Chatbot
+
+        ↓
+
+Answer:
+Refunds are processed within
+7–10 business days.
+
+        +
+
+Source:
+Return Policy
+
+        ↓
+
+ChatResult
+
+
+Responsibility
+--------------
+
+API Layer
+    ↓
+HTTP request/response
+
+Service Layer
+    ↓
+Application logic
+
+RAG Layer
+    ↓
+Retrieval + Generation

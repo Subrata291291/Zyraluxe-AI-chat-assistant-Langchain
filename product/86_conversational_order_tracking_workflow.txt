@@ -1,0 +1,68 @@
+==================================================
+FILE 86 - CONVERSATIONAL ORDER TRACKING
+==================================================
+
+Goal:
+Remember when the assistant is waiting
+for an Order ID.
+
+
+Conversation:
+
+User:
+Where is my order?
+
+        ↓
+
+ORDER_ID_REQUIRED
+
+        ↓
+
+waiting_for_order_id = True
+
+        ↓
+
+Assistant:
+Please provide your order ID.
+
+
+User:
+1177
+
+        ↓
+
+waiting_for_order_id = True
+
+        ↓
+
+File 85
+
+        ↓
+
+File 84
+
+        ↓
+
+WooCommerce API
+
+        ↓
+
+Order found
+
+        ↓
+
+waiting_for_order_id = False
+
+
+Important:
+
+This file adds conversation state.
+
+File 84:
+WooCommerce API
+
+File 85:
+Order query handling
+
+File 86:
+Conversation state

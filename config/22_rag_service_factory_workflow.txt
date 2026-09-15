@@ -1,0 +1,55 @@
+============================================================
+ZYRA LUXE - RAG SERVICE FACTORY WORKFLOW
+============================================================
+
+18_config.py
+      ↓
+Load Configuration
+      ↓
+22_rag_service_factory.py
+      ↓
+create_components()
+      |
+      +------→ create_llm()
+      |
+      +------→ create_embeddings()
+      |
+      +------→ create_pinecone_index()
+      |
+      ↓
+Components
+      |
+      +-- LLM
+      +-- Embeddings
+      +-- Pinecone Index
+
+
+Factory Pattern
+---------------
+
+Instead of creating components
+everywhere:
+
+File A → create LLM
+File B → create LLM
+File C → create LLM
+
+Use:
+
+Factory
+   ↓
+create_llm()
+   ↓
+LLM
+
+
+Benefit
+-------
+
+Centralized component creation
+        ↓
+Cleaner architecture
+        ↓
+Easier model replacement
+        ↓
+Easier testing

@@ -1,0 +1,66 @@
+============================================================
+FILE 63 - UPLOAD PRODUCT EMBEDDINGS TO PINECONE
+============================================================
+
+INPUT
+-----
+data/products/product_embeddings.json
+
+
+PINECONE INDEX
+--------------
+zyra-luxe-knowledge
+
+
+NAMESPACE
+---------
+products
+
+
+PROCESS
+-------
+1. Load product embeddings
+2. Connect to Pinecone
+3. Check existing index
+4. Compare vector dimensions
+5. Prepare product vectors
+6. Upload vectors
+7. Store product metadata
+
+
+VECTOR DIMENSION
+----------------
+3072
+
+
+METADATA
+--------
+name
+url
+categories
+tags
+text
+
+
+IMPORTANT
+---------
+No new Pinecone index is created.
+
+Products use the existing
+zyra-luxe-knowledge index
+with the products namespace.
+
+
+DATA STRUCTURE
+--------------
+zyra-luxe-knowledge
+│
+├── knowledge
+│     ├── Return Policy
+│     └── Privacy Policy
+│
+└── products
+      ├── Product 1
+      ├── Product 2
+      ├── ...
+      └── Product 35

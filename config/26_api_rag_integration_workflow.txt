@@ -1,0 +1,81 @@
+============================================================
+ZYRA LUXE - API + RAG INTEGRATION WORKFLOW
+============================================================
+
+Frontend
+   ↓
+POST /chat
+   ↓
+FastAPI
+   ↓
+Validate Request
+   ↓
+Session Manager
+   ↓
+Store User Message
+   ↓
+RAG Pipeline
+   ↓
+Retrieve Context
+   ↓
+Gemini
+   ↓
+Generate Answer
+   ↓
+Store Assistant Message
+   ↓
+Get Session History
+   ↓
+Add Sources
+   ↓
+JSON Response
+   ↓
+Frontend
+
+
+Request
+-------
+
+{
+    "session_id": "user-001",
+    "message": "How long does a refund take?"
+}
+
+
+RAG Pipeline
+------------
+
+Question
+   ↓
+Embedding
+   ↓
+Pinecone
+   ↓
+Relevant Context
+   ↓
+Gemini
+   ↓
+Answer
+
+
+Response
+--------
+
+{
+    "session_id": "user-001",
+    "answer": "...",
+    "sources": [...],
+    "history": [...]
+}
+
+
+Architecture
+------------
+
+FastAPI
+   ↓
+Session Manager
+   +
+RAG Pipeline
+   ↓
+Answer + Sources + History

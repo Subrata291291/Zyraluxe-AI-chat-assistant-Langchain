@@ -1,0 +1,100 @@
+============================================================
+ZYRA LUXE - COMPLETE RAG CHATBOT WORKFLOW
+============================================================
+
+User
+ ↓
+Question
+ ↓
+Query Router
+ ↓
+┌───────────────┬───────────────┬───────────────┐
+│ Policy        │ Product       │ Order         │
+↓               ↓               ↓
+Rewrite         Product DB     Live API
+↓
+Embedding
+↓
+Pinecone
+↓
+Top Results
+↓
+Context Compression
+↓
+Relevant Context
+↓
+Gemini
+↓
+Grounded Answer
+↓
+Source Citation
+↓
+User
+
+
+POLICY FLOW
+-----------
+
+Question
+    ↓
+"How long does a refund take?"
+    ↓
+Route = policy
+    ↓
+Rewrite Query
+    ↓
+"Zyra Luxe refund processing time"
+    ↓
+Gemini Embedding
+    ↓
+Pinecone
+    ↓
+Relevant Chunks
+    ↓
+Context Compression
+    ↓
+Gemini
+    ↓
+Answer
+    ↓
+Return Policy Source
+
+
+PRODUCT FLOW
+------------
+
+Question
+    ↓
+"Show me gold earrings"
+    ↓
+Route = product
+    ↓
+Structured Product Search
+
+This will be implemented later.
+
+
+ORDER FLOW
+----------
+
+Question
+    ↓
+"Where is my order?"
+    ↓
+Route = order
+    ↓
+Live Order API
+
+This will be implemented later.
+
+
+GENERAL FLOW
+------------
+
+Question
+    ↓
+Knowledge Retrieval
+    ↓
+Gemini
+    ↓
+Grounded Answer

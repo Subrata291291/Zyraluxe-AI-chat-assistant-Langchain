@@ -1,0 +1,51 @@
+============================================================
+ZYRA LUXE - PERSISTENT METRICS WORKFLOW
+============================================================
+
+requests.json
+      ↓
+Load Stored Requests
+      ↓
+PersistentMetrics
+      ↓
+Calculate
+      ↓
+ ┌───────────────────────────┐
+ │ Total Requests            │
+ │ Successful Requests       │
+ │ Failed Requests           │
+ │ Success Rate              │
+ │ Average Response Time     │
+ │ Provider Usage            │
+ └───────────────────────────┘
+      ↓
+Metrics Summary
+
+
+Difference
+----------
+
+File 44
+-------
+Used sample data
+
+
+File 46
+-------
+Reads real data from:
+
+data/monitoring/requests.json
+
+
+Example
+-------
+
+requests.json
+      ↓
+100 requests
+      ↓
+94 successful
+      ↓
+6 failed
+      ↓
+94% success rate

@@ -1,0 +1,62 @@
+============================================================
+FILE 68 - INTEGRATED HYBRID SEARCH
+============================================================
+
+INPUT
+-----
+Customer natural-language query
+
+
+PROCESS
+-------
+1. Parse query using LLM
+2. Extract structured filters
+3. Normalize product keywords
+4. Filter structured product data
+5. Apply keyword matching
+6. Create semantic query embedding
+7. Search Pinecone
+8. Match semantic results with filtered products
+9. Return final ranked products
+
+
+STRUCTURED FILTERS
+------------------
+Category
+Price
+Stock
+
+
+KEYWORD LAYER
+-------------
+Normalized product keywords
+
+
+SEMANTIC LAYER
+--------------
+Pinecone similarity search
+
+
+FINAL RESULT
+------------
+Products satisfying:
+
+- Structured constraints
+- Product keyword requirements
+- Semantic relevance
+
+
+DATA SOURCES
+------------
+products.json
++
+Pinecone
+
+
+OUTPUT
+------
+Name
+Price
+Stock
+Semantic Score
+URL

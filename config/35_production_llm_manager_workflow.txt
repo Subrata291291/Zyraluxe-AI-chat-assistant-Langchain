@@ -1,0 +1,50 @@
+============================================================
+ZYRA LUXE - PRODUCTION LLM MANAGER WORKFLOW
+============================================================
+
+RAG Prompt
+    ↓
+Production LLM Manager
+    ↓
+Gemini
+    ↓
+Error?
+ ┌───────────────┴────────────────┐
+ │                                │
+No                               Yes
+ │                                │
+ ↓                                ↓
+Answer                    Error Classification
+                              ↓
+                   ┌──────────┴──────────┐
+                   │                     │
+             Temporary Error       Configuration Error
+                   │                     │
+                   ↓                     ↓
+               Fallback                 Stop
+                   ↓
+                 Groq
+                   ↓
+              OpenRouter
+                   ↓
+                 OpenAI
+                   ↓
+                Answer
+
+
+Temporary Errors
+----------------
+
+429
+503
+Timeout
+Connection
+
+
+Configuration Errors
+--------------------
+
+401
+403
+404
+Unknown
