@@ -8,8 +8,20 @@ BASE_DIR = Path(__file__).resolve().parent
 def load_module(filename: str, module_name: str):
     path = BASE_DIR / filename
 
-    spec = importlib.util.spec_from_file_location(module_name, path)
-    module = importlib.util.module_from_spec(spec)
+    spec = importlib.util.spec_from_file_location(
+        module_name,
+        path
+    )
+
+    if spec is None or spec.loader is None:
+        raise ImportError(
+            f"Could not load {path}"
+        )
+
+    module = importlib.util.module_from_spec(
+        spec
+    )
+
     spec.loader.exec_module(module)
 
     return module
@@ -36,69 +48,201 @@ order_module = load_module(
 )
 
 
+GENERAL_FILE = (
+    BASE_DIR.parent
+    / "ai"
+    / "14_general_response.py"
+)
+
+general_spec = importlib.util.spec_from_file_location(
+    "general_response",
+    GENERAL_FILE
+)
+
+if general_spec is None or general_spec.loader is None:
+    raise ImportError(
+        f"Could not load {GENERAL_FILE}"
+    )
+
+general_module = importlib.util.module_from_spec(
+    general_spec
+)
+
+general_spec.loader.exec_module(
+    general_module
+)
+
+
 class ZyraAssistantOrchestrator:
 
     def __init__(self):
-        self.router = router_module.ZyraQueryRouter()
-        self.product_response = product_module.APIProductResponse()
-        self.policy_rag = policy_module.PolicyRAGService()
-        self.order_tracking = order_module.IntegratedOrderTracking()
 
-    def handle(self, message: str) -> dict:
+        self.router = (
+            router_module.ZyraQueryRouter()
+        )
 
-        if self.order_tracking.waiting_for_order_id:
+        self.product_response = (
+            product_module.APIProductResponse()
+        )
 
-            return self.order_tracking.handle(message)
+        self.policy_rag = (
+            policy_module.PolicyRAGService()
+        )
 
-        route = self.router.route(message)
+        self.order_tracking = (
+            order_module.IntegratedOrderTracking()
+        )
+
+        self.general_response = (
+            general_module.GeneralResponseGenerator()
+        )
+
+    def handle(
+        self,
+        message: str,
+        history: list[dict] | None = None,
+        session_id: str | None = None
+    ) -> dict:
+
+        if history is None:
+            history = []
+
+        if (
+            session_id is not None
+            and session_id
+            in self.order_tracking.waiting_sessions
+        ):
+            return self.order_tracking.handle(
+                message,
+                session_id
+            )
+
+        route = self.router.route_with_context(
+            message,
+            history
+        )
 
         if route == "PRODUCT":
-            return self.product_response.create_response(message)
+
+            return self.product_response.create_response(
+                message,
+                history
+            )
 
         if route == "POLICY":
-            return self.policy_rag.answer(message)
+
+            return self.policy_rag.answer(
+                message,
+                history
+            )
 
         if route == "ORDER":
-            return self.order_tracking.handle(message)
+
+            return self.order_tracking.handle(
+                message,
+                session_id
+            )
 
         if route == "GENERAL":
+
+            result = self.general_response.generate(
+                message,
+                history
+            )
+
             return {
-                "success": True,
+                "success": result.get(
+                    "success",
+                    False
+                ),
                 "route": "GENERAL",
-                "answer": "Hello! How can I help you with Zyra Luxe?"
+                "answer": result.get(
+                    "answer",
+                    ""
+                )
             }
 
         return {
             "success": False,
             "route": "UNKNOWN",
-            "answer": "Sorry, I could not understand your request."
+            "answer": (
+                "Sorry, I could not understand "
+                "your request."
+            )
         }
+
 
 if __name__ == "__main__":
 
     assistant = ZyraAssistantOrchestrator()
 
     print("=" * 60)
-    print("ZYRA LUXE ASSISTANT - ORDER INTEGRATION")
+    print("ZYRA LUXE ASSISTANT - CONTEXT ROUTING")
     print("=" * 60)
 
-    print("\n1. Order without ID")
-    print(assistant.handle("Where is my order?"))
+    product_history = [
+        {
+            "role": "user",
+            "content": "Show me oxidized earrings"
+        },
+        {
+            "role": "assistant",
+            "content": "I found some oxidized earrings."
+        }
+    ]
 
-    print("\n2. Order ID")
-    print(assistant.handle("1177"))
+    print("\n1. Product follow-up")
 
-    print("\n3. Natural language order")
-    print(assistant.handle("My order number is 1177"))
+    print(
+        assistant.handle(
+            "Show me more",
+            product_history
+        )
+    )
 
-    print("\n4. Invalid order")
-    print(assistant.handle("My order number is 985"))
+    policy_history = [
+        {
+            "role": "user",
+            "content": "What is your return policy?"
+        },
+        {
+            "role": "assistant",
+            "content": (
+                "You can request a return "
+                "within 2 hours of delivery."
+            )
+        }
+    ]
 
-    print("\n5. Product")
-    print(assistant.handle("Show me oxidized earrings under 300"))
+    print("\n2. Policy follow-up")
 
-    print("\n6. Policy")
-    print(assistant.handle("What is your return policy?"))
+    print(
+        assistant.handle(
+            "Tell me more",
+            policy_history
+        )
+    )
 
-    print("\n7. General")
-    print(assistant.handle("Hello"))
+    print("\n3. Product")
+
+    print(
+        assistant.handle(
+            "Show me oxidized earrings under 300"
+        )
+    )
+
+    print("\n4. Policy")
+
+    print(
+        assistant.handle(
+            "Do you sell my personal information?"
+        )
+    )
+
+    print("\n5. General")
+
+    print(
+        assistant.handle(
+            "Hello"
+        )
+    )

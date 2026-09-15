@@ -6,9 +6,18 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
 def load_module(name, file_path):
-    spec = importlib.util.spec_from_file_location(name, file_path)
-    module = importlib.util.module_from_spec(spec)
+
+    spec = importlib.util.spec_from_file_location(
+        name,
+        file_path
+    )
+
+    module = importlib.util.module_from_spec(
+        spec
+    )
+
     spec.loader.exec_module(module)
+
     return module
 
 
@@ -18,9 +27,21 @@ SEMANTIC_FILE = PROJECT_ROOT / "product" / "64_semantic_product_search.py"
 PRODUCT_SEARCH_FILE = PROJECT_ROOT / "product" / "54_product_search.py"
 
 
-parser_module = load_module("llm_parser", PARSER_FILE)
-normalizer_module = load_module("keyword_normalizer", NORMALIZER_FILE)
-semantic_module = load_module("semantic_search", SEMANTIC_FILE)
+parser_module = load_module(
+    "llm_parser",
+    PARSER_FILE
+)
+
+normalizer_module = load_module(
+    "keyword_normalizer",
+    NORMALIZER_FILE
+)
+
+semantic_module = load_module(
+    "semantic_search",
+    SEMANTIC_FILE
+)
+
 product_search_module = load_module(
     "product_search",
     PRODUCT_SEARCH_FILE
@@ -30,7 +51,9 @@ product_search_module = load_module(
 class IntegratedHybridSearch:
 
     def __init__(self, top_k=20):
+
         self.parser = parser_module.LLMProductQueryParser()
+
         self.normalizer = normalizer_module.ProductKeywordNormalizer()
 
         self.semantic_search = semantic_module.SemanticProductSearch(
@@ -65,6 +88,7 @@ class IntegratedHybridSearch:
 
         structured_products = self.product_search.search(
             query=None,
+            min_price=filters.get("min_price"),
             max_price=filters.get("max_price"),
             category=filters.get("category"),
             in_stock=filters.get("in_stock")
@@ -85,28 +109,34 @@ class IntegratedHybridSearch:
             customer_query
         )
 
+        product_map = {
+            product["url"]: product
+            for product in filtered_products
+        }
+
         results = []
 
         for match in semantic_matches:
 
             metadata = match.metadata
+
             url = metadata.get("url")
 
-            if url in allowed_urls:
+            if url not in allowed_urls:
+                continue
 
-                product = next(
-                    product
-                    for product in filtered_products
-                    if product["url"] == url
-                )
+            product = product_map.get(url)
 
-                results.append({
-                    "name": product.get("name"),
-                    "price": product.get("price"),
-                    "in_stock": product.get("in_stock"),
-                    "url": product.get("url"),
-                    "score": match.score
-                })
+            if not product:
+                continue
+
+            results.append({
+                "name": product.get("name"),
+                "price": product.get("price"),
+                "in_stock": product.get("in_stock"),
+                "url": product.get("url"),
+                "score": match.score
+            })
 
         return {
             "query": customer_query,
@@ -122,7 +152,9 @@ if __name__ == "__main__":
     print("ZYRA LUXE - INTEGRATED HYBRID SEARCH")
     print("=" * 60)
 
-    searcher = IntegratedHybridSearch(top_k=20)
+    searcher = IntegratedHybridSearch(
+        top_k=35
+    )
 
     queries = [
         "I want oxidized jewellery",
@@ -147,7 +179,10 @@ if __name__ == "__main__":
         print(f"Keywords: {result['keywords']}")
 
         print()
-        print(f"Matching Products: {len(result['results'])}")
+        print(
+            f"Matching Products: "
+            f"{len(result['results'])}"
+        )
 
         for rank, product in enumerate(
             result["results"][:5],

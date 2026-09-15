@@ -15,41 +15,51 @@ class SessionManager:
         self,
         session_id: str,
         role: str,
-        content: str
+        content: str,
+        products: list[dict] | None = None
     ) -> None:
 
         self.create_session(session_id)
 
-        self.sessions[session_id].append({
+        message = {
             "role": role,
             "content": content,
             "timestamp": datetime.now().isoformat()
-        })
+        }
 
-    def get_history(
-        self,
-        session_id: str
-    ) -> list[dict]:
+        if products:
+            message["products"] = products
+
+        self.sessions[session_id].append(message)
+
+    def get_history(self, session_id: str) -> list[dict]:
 
         return self.sessions.get(
             session_id,
             []
         )
 
-    def clear_session(
+    def get_recent_history(
         self,
-        session_id: str
-    ) -> None:
+        session_id: str,
+        limit: int = 6
+    ) -> list[dict]:
+
+        history = self.sessions.get(
+            session_id,
+            []
+        )
+
+        return history[-limit:]
+
+    def clear_session(self, session_id: str) -> None:
 
         self.sessions.pop(
             session_id,
             None
         )
 
-    def session_exists(
-        self,
-        session_id: str
-    ) -> bool:
+    def session_exists(self, session_id: str) -> bool:
 
         return session_id in self.sessions
 
@@ -57,59 +67,60 @@ class SessionManager:
 if __name__ == "__main__":
 
     print("=" * 60)
-    print("ZYRA LUXE - SESSION MANAGER")
+    print("SESSION MANAGER TEST")
     print("=" * 60)
 
     manager = SessionManager()
 
-    session_id = "user-001"
-
-    manager.create_session(session_id)
+    session_id = "test-session"
 
     manager.add_message(
         session_id,
         "user",
-        "Can I return an item?"
+        "Show me oxidized jewellery"
     )
+
+    products = [
+        {
+            "name": "Designer Oxidized Jhumka",
+            "url": "https://zyraluxe.in/product/designer-oxidized-jhumka/",
+            "price": 160.0
+        },
+        {
+            "name": "Antique Designer Oxidized Jhumka",
+            "url": "https://zyraluxe.in/product/antique-designer-oxidized-jhumka/",
+            "price": 120.0
+        }
+    ]
 
     manager.add_message(
         session_id,
         "assistant",
-        "Yes, you can request a return within 2 hours of delivery."
+        "I found 2 products matching your request.",
+        products=products
     )
 
-    manager.add_message(
-        session_id,
-        "user",
-        "What about sale items?"
-    )
-
-    manager.add_message(
-        session_id,
-        "assistant",
-        "Sale items are non-returnable."
+    history = manager.get_history(
+        session_id
     )
 
     print()
-    print(f"Session ID: {session_id}")
-
-    print()
-    print("Conversation History")
-    print("-" * 60)
-
-    history = manager.get_history(session_id)
+    print("Full History:")
 
     for message in history:
+        print()
+        print(message)
 
-        print(
-            f"{message['role'].upper()}: "
-            f"{message['content']}"
-        )
+    recent_history = manager.get_recent_history(
+        session_id,
+        limit=1
+    )
 
     print()
-    print(f"Total messages: {len(history)}")
+    print("Recent History:")
+    print(recent_history)
 
     print()
     print("=" * 60)
-    print("SESSION MANAGER COMPLETED")
+    print("SESSION MANAGER TEST COMPLETED")
     print("=" * 60)

@@ -152,10 +152,38 @@ Give a concise and helpful answer.
 
         return str(response.content).strip()
 
-    def answer(self, customer_query):
+    def get_previous_policy_query(self, history):
 
-        route = self.router.route(
-            customer_query
+        for message in reversed(history):
+
+            if message.get("role") != "user":
+                continue
+
+            previous_query = message.get(
+                "content",
+                ""
+            ).strip()
+
+            if not previous_query:
+                continue
+
+            if self.router.route(previous_query) == "POLICY":
+                return previous_query
+
+        return None
+
+    def answer(
+        self,
+        customer_query,
+        history=None
+    ):
+
+        if history is None:
+            history = []
+
+        route = self.router.route_with_context(
+            customer_query,
+            history
         )
 
         if route != "POLICY":
@@ -166,8 +194,23 @@ Give a concise and helpful answer.
                 "answer": "This query is not a policy query."
             }
 
+        retrieval_query = customer_query
+
+        if self.router.is_follow_up(customer_query):
+
+            previous_policy_query = (
+                self.get_previous_policy_query(history)
+            )
+
+            if previous_policy_query:
+                retrieval_query = previous_policy_query
+
+        print(
+            f"Policy retrieval query: {retrieval_query}"
+        )
+
         documents = self.retrieve(
-            customer_query
+            retrieval_query
         )
 
         if not documents:
@@ -208,39 +251,56 @@ if __name__ == "__main__":
 
     service = PolicyRAGService()
 
-    queries = [
-        "What is your return policy?",
-        "Can I get a refund?",
-        "What is your privacy policy?"
-    ]
-
     print("=" * 60)
     print("ZYRA LUXE - POLICY RAG")
     print("=" * 60)
 
-    for query in queries:
+    print("\n1. Direct policy query")
 
-        print()
-        print("-" * 60)
-        print(f"Question: {query}")
-        print("-" * 60)
+    result = service.answer(
+        "What is your return policy?"
+    )
 
-        result = service.answer(query)
+    print()
+    print(f"Route: {result['route']}")
+    print(f"Success: {result['success']}")
+    print(f"Answer: {result['answer']}")
 
-        print()
-        print(f"Route: {result['route']}")
-        print(f"Success: {result['success']}")
-        print(f"Answer: {result['answer']}")
+    print("\n2. Policy follow-up")
 
-        print()
-        print("Sources:")
-
-        for source in result.get("sources", []):
-
-            print(
-                f"- {source['title']} "
-                f"(score={source['score']:.4f})"
+    history = [
+        {
+            "role": "user",
+            "content": "What is your return policy?"
+        },
+        {
+            "role": "assistant",
+            "content": (
+                "You can request a return "
+                "within 2 hours of delivery."
             )
+        }
+    ]
+
+    result = service.answer(
+        "Tell me more",
+        history
+    )
+
+    print()
+    print(f"Route: {result['route']}")
+    print(f"Success: {result['success']}")
+    print(f"Answer: {result['answer']}")
+
+    print()
+    print("Sources:")
+
+    for source in result.get("sources", []):
+
+        print(
+            f"- {source['title']} "
+            f"(score={source['score']:.4f})"
+        )
 
     print()
     print("=" * 60)

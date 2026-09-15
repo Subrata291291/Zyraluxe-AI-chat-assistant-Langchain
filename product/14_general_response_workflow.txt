@@ -1,0 +1,51 @@
+============================================================
+ZYRA LUXE - GENERAL RESPONSE WORKFLOW
+============================================================
+
+PURPOSE
+-------
+Generate natural conversational responses for GENERAL queries.
+
+FLOW
+----
+User message
+    ↓
+GeneralResponseGenerator
+    ↓
+Conversation history
+    ↓
+Prompt creation
+    ↓
+ProductionLLMManager
+    ↓
+Gemini
+    ↓ failure
+Groq
+    ↓ failure
+OpenRouter
+    ↓ failure
+OpenAI
+    ↓
+Natural response
+
+
+IMPORTANT
+---------
+This module does NOT handle:
+
+- Product search
+- Product price
+- Product stock
+- Order status
+- Return policy
+- Refund policy
+
+Those are handled by dedicated modules.
+
+
+TEST CASES
+----------
+Hello
+How are you?
+What can you help me with?
+Thanks
