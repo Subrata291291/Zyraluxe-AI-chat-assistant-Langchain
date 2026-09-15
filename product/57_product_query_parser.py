@@ -9,6 +9,7 @@ class ProductQueryParser:
 
         filters = {
             "query": None,
+            "min_price": None,
             "max_price": None,
             "category": None,
             "in_stock": None
@@ -27,6 +28,16 @@ class ProductQueryParser:
                 filters["category"] = category
                 break
 
+        min_price_match = re.search(
+            r"(?:above|over|more than)\s*[₹rs.]?\s*(\d+)",
+            query_lower
+        )
+
+        if min_price_match:
+            filters["min_price"] = float(
+                min_price_match.group(1)
+            )
+    
         price_match = re.search(
             r"(?:under|below|less than|upto|up to)\s*[₹rs.]?\s*(\d+)",
             query_lower
@@ -65,7 +76,10 @@ if __name__ == "__main__":
         "I want necklace below 500",
         "Show me bangles upto ₹200",
         "I want earrings that are in stock",
-        "Show me out of stock necklace"
+        "Show me out of stock necklace",
+        "Show me products above 200",
+        "Show me products over 300",
+        "Show me products more than ₹400",
     ]
 
     for query in queries:

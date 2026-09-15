@@ -82,6 +82,7 @@ Convert the customer's request into JSON.
 Allowed fields:
 - query: product keyword or feature, otherwise null
 - category: earrings, necklace, bangles, combo, otherwise null
+- min_price: minimum price as a number, otherwise null
 - max_price: maximum price as a number, otherwise null
 - in_stock: true, false, or null
 

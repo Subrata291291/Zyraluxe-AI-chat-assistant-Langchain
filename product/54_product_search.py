@@ -32,6 +32,7 @@ class ProductSearch:
     def search(
         self,
         query=None,
+        min_price=None,
         max_price=None,
         category=None,
         in_stock=None
@@ -48,6 +49,15 @@ class ProductSearch:
                 for product in results
                 if query in (product.get("name") or "").lower()
                 or query in (product.get("description") or "").lower()
+            ]
+
+        if min_price is not None:
+
+            results = [
+                product
+                for product in results
+                if product.get("price") is not None
+                and product["price"] >= min_price
             ]
 
         if max_price is not None:

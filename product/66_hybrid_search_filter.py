@@ -58,6 +58,7 @@ class HybridSearchFilter:
 
         structured_products = self.product_search.search(
             query=None,
+            min_price=filters.get("min_price"),
             max_price=filters.get("max_price"),
             category=filters.get("category"),
             in_stock=filters.get("in_stock")
