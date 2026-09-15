@@ -40,8 +40,10 @@ class IntegratedOrderTracking:
         if order_id:
             result = self.order_handler.handle(str(order_id))
 
-            if result.get("status") in {"ORDER_FOUND", "ORDER_NOT_FOUND"}:
+            if result.get("status") == "ORDER_FOUND":
                 self.waiting_for_order_id = False
+            elif result.get("status") == "ORDER_NOT_FOUND":
+                self.waiting_for_order_id = True
 
             return result
 
