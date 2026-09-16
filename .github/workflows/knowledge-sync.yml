@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: "0 * * * *"
 
+permissions:
+  contents: write
+
 jobs:
   knowledge-sync:
     runs-on: ubuntu-latest
@@ -29,3 +32,16 @@ jobs:
           PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
         run: |
           python ingestion/09_run_knowledge_sync.py
+
+      - name: Save sync state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet -- data/policies/sync_state.json; then
+            echo "No sync state changes."
+          else
+            git add data/policies/sync_state.json
+            git commit -m "Update knowledge sync state"
+            git push
+          fi
