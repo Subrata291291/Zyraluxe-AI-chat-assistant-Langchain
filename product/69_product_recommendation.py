@@ -118,7 +118,7 @@ if __name__ == "__main__":
         top_k=5
     )
 
-    query = "I want oxidized earrings under 300"
+    query = "I want oxidized jewellery"
 
     print()
     print("-" * 60)

@@ -12,6 +12,11 @@ def load_module(name, file_path):
         file_path
     )
 
+    if spec is None or spec.loader is None:
+        raise ImportError(
+            f"Could not load module: {file_path}"
+        )
+
     module = importlib.util.module_from_spec(
         spec
     )
@@ -21,10 +26,29 @@ def load_module(name, file_path):
     return module
 
 
-PARSER_FILE = PROJECT_ROOT / "product" / "59_llm_product_query_parser.py"
-NORMALIZER_FILE = PROJECT_ROOT / "product" / "67_product_keyword_normalizer.py"
-SEMANTIC_FILE = PROJECT_ROOT / "product" / "64_semantic_product_search.py"
-PRODUCT_SEARCH_FILE = PROJECT_ROOT / "product" / "54_product_search.py"
+PARSER_FILE = (
+    PROJECT_ROOT
+    / "product"
+    / "59_llm_product_query_parser.py"
+)
+
+NORMALIZER_FILE = (
+    PROJECT_ROOT
+    / "product"
+    / "67_product_keyword_normalizer.py"
+)
+
+SEMANTIC_FILE = (
+    PROJECT_ROOT
+    / "product"
+    / "64_semantic_product_search.py"
+)
+
+PRODUCT_SEARCH_FILE = (
+    PROJECT_ROOT
+    / "product"
+    / "54_product_search.py"
+)
 
 
 parser_module = load_module(
@@ -52,17 +76,34 @@ class IntegratedHybridSearch:
 
     def __init__(self, top_k=20):
 
-        self.parser = parser_module.LLMProductQueryParser()
+        self.top_k = top_k
 
-        self.normalizer = normalizer_module.ProductKeywordNormalizer()
-
-        self.semantic_search = semantic_module.SemanticProductSearch(
-            top_k=top_k
+        self.parser = (
+            parser_module.LLMProductQueryParser()
         )
 
-        self.product_search = product_search_module.ProductSearch()
+        self.normalizer = (
+            normalizer_module.ProductKeywordNormalizer()
+        )
 
-    def keyword_match(self, product, keywords):
+        self.semantic_search = (
+            semantic_module.SemanticProductSearch(
+                top_k=max(
+                    top_k,
+                    50
+                )
+            )
+        )
+
+        self.product_search = (
+            product_search_module.ProductSearch()
+        )
+
+    def keyword_match(
+        self,
+        product,
+        keywords
+    ):
 
         if not keywords:
             return True
@@ -70,7 +111,9 @@ class IntegratedHybridSearch:
         text = " ".join([
             product.get("name") or "",
             product.get("description") or "",
-            " ".join(product.get("tags", []))
+            " ".join(
+                product.get("tags", [])
+            )
         ]).lower()
 
         return all(
@@ -78,26 +121,44 @@ class IntegratedHybridSearch:
             for keyword in keywords
         )
 
-    def search(self, customer_query):
+    def search(
+        self,
+        customer_query
+    ):
 
-        filters = self.parser.parse(customer_query)
+        filters = self.parser.parse(
+            customer_query
+        )
 
         keywords = self.normalizer.normalize(
             filters.get("query")
         )
 
-        structured_products = self.product_search.search(
-            query=None,
-            min_price=filters.get("min_price"),
-            max_price=filters.get("max_price"),
-            category=filters.get("category"),
-            in_stock=filters.get("in_stock")
+        structured_products = (
+            self.product_search.search(
+                query=None,
+                min_price=filters.get(
+                    "min_price"
+                ),
+                max_price=filters.get(
+                    "max_price"
+                ),
+                category=filters.get(
+                    "category"
+                ),
+                in_stock=filters.get(
+                    "in_stock"
+                )
+            )
         )
 
         filtered_products = [
             product
             for product in structured_products
-            if self.keyword_match(product, keywords)
+            if self.keyword_match(
+                product,
+                keywords
+            )
         ]
 
         allowed_urls = {
@@ -105,8 +166,19 @@ class IntegratedHybridSearch:
             for product in filtered_products
         }
 
-        semantic_matches = self.semantic_search.search(
-            customer_query
+        if not allowed_urls:
+
+            return {
+                "query": customer_query,
+                "filters": filters,
+                "keywords": keywords,
+                "results": []
+            }
+
+        semantic_matches = (
+            self.semantic_search.search(
+                customer_query
+            )
         )
 
         product_map = {
@@ -116,27 +188,51 @@ class IntegratedHybridSearch:
 
         results = []
 
+        seen_urls = set()
+
         for match in semantic_matches:
 
             metadata = match.metadata
 
-            url = metadata.get("url")
+            url = metadata.get(
+                "url"
+            )
 
             if url not in allowed_urls:
                 continue
 
-            product = product_map.get(url)
+            if url in seen_urls:
+                continue
+
+            product = product_map.get(
+                url
+            )
 
             if not product:
                 continue
 
+            seen_urls.add(url)
+
             results.append({
-                "name": product.get("name"),
-                "price": product.get("price"),
-                "in_stock": product.get("in_stock"),
-                "url": product.get("url"),
-                "score": match.score
+                "name": product.get(
+                    "name"
+                ),
+                "price": product.get(
+                    "price"
+                ),
+                "in_stock": product.get(
+                    "in_stock"
+                ),
+                "url": product.get(
+                    "url"
+                ),
+                "score": float(
+                    match.score
+                )
             })
+
+            if len(results) >= self.top_k:
+                break
 
         return {
             "query": customer_query,
@@ -149,7 +245,9 @@ class IntegratedHybridSearch:
 if __name__ == "__main__":
 
     print("=" * 60)
-    print("ZYRA LUXE - INTEGRATED HYBRID SEARCH")
+    print(
+        "ZYRA LUXE - INTEGRATED HYBRID SEARCH"
+    )
     print("=" * 60)
 
     searcher = IntegratedHybridSearch(
@@ -166,17 +264,26 @@ if __name__ == "__main__":
 
         print()
         print("-" * 60)
-        print(f"Customer Query: {query}")
+        print(
+            f"Customer Query: {query}"
+        )
         print("-" * 60)
 
-        result = searcher.search(query)
+        result = searcher.search(
+            query
+        )
 
         print()
         print("Filters:")
-        print(result["filters"])
+        print(
+            result["filters"]
+        )
 
         print()
-        print(f"Keywords: {result['keywords']}")
+        print(
+            f"Keywords: "
+            f"{result['keywords']}"
+        )
 
         print()
         print(
@@ -196,14 +303,38 @@ if __name__ == "__main__":
             )
 
             print()
-            print(f"Rank: {rank}")
-            print(f"Score: {product['score']:.4f}")
-            print(f"Name: {product['name']}")
-            print(f"Price: ₹{product['price']}")
-            print(f"Stock: {stock}")
-            print(f"URL: {product['url']}")
+            print(
+                f"Rank: {rank}"
+            )
+
+            print(
+                f"Score: "
+                f"{product['score']:.4f}"
+            )
+
+            print(
+                f"Name: "
+                f"{product['name']}"
+            )
+
+            print(
+                f"Price: "
+                f"₹{product['price']}"
+            )
+
+            print(
+                f"Stock: "
+                f"{stock}"
+            )
+
+            print(
+                f"URL: "
+                f"{product['url']}"
+            )
 
     print()
     print("=" * 60)
-    print("INTEGRATED HYBRID SEARCH COMPLETED")
+    print(
+        "INTEGRATED HYBRID SEARCH COMPLETED"
+    )
     print("=" * 60)

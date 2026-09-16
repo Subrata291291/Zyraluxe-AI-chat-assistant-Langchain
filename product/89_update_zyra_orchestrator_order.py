@@ -1,75 +1,77 @@
 import importlib.util
 from pathlib import Path
 
-
 BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parent
 
 
-def load_module(filename: str, module_name: str):
-    path = BASE_DIR / filename
-
+def load_module(name, file_path):
     spec = importlib.util.spec_from_file_location(
-        module_name,
-        path
+        name,
+        file_path
     )
 
     if spec is None or spec.loader is None:
         raise ImportError(
-            f"Could not load {path}"
+            f"Could not load module: {file_path}"
         )
 
-    module = importlib.util.module_from_spec(
-        spec
-    )
-
+    module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
 
     return module
 
 
-router_module = load_module(
-    "80_zyra_query_router.py",
-    "zyra_query_router"
+ROUTER_FILE = (
+    BASE_DIR
+    / "80_zyra_query_router.py"
 )
 
-product_module = load_module(
-    "76_api_product_response.py",
-    "api_product_response"
+PRODUCT_FILE = (
+    BASE_DIR
+    / "76_api_product_response.py"
 )
 
-policy_module = load_module(
-    "82_policy_rag_integration.py",
-    "policy_rag_integration"
+POLICY_FILE = (
+    BASE_DIR
+    / "82_policy_rag_integration.py"
 )
 
-order_module = load_module(
-    "88_integrated_order_tracking.py",
-    "integrated_order_tracking"
+ORDER_FILE = (
+    BASE_DIR
+    / "88_integrated_order_tracking.py"
 )
-
 
 GENERAL_FILE = (
-    BASE_DIR.parent
+    PROJECT_ROOT
     / "ai"
     / "14_general_response.py"
 )
 
-general_spec = importlib.util.spec_from_file_location(
+
+router_module = load_module(
+    "zyra_query_router",
+    ROUTER_FILE
+)
+
+product_module = load_module(
+    "api_product_response",
+    PRODUCT_FILE
+)
+
+policy_module = load_module(
+    "policy_rag_integration",
+    POLICY_FILE
+)
+
+order_module = load_module(
+    "integrated_order_tracking",
+    ORDER_FILE
+)
+
+general_module = load_module(
     "general_response",
     GENERAL_FILE
-)
-
-if general_spec is None or general_spec.loader is None:
-    raise ImportError(
-        f"Could not load {GENERAL_FILE}"
-    )
-
-general_module = importlib.util.module_from_spec(
-    general_spec
-)
-
-general_spec.loader.exec_module(
-    general_module
 )
 
 
@@ -166,83 +168,73 @@ class ZyraAssistantOrchestrator:
             "success": False,
             "route": "UNKNOWN",
             "answer": (
-                "Sorry, I could not understand "
-                "your request."
+                "Sorry, I could not "
+                "understand your request."
             )
         }
 
 
 if __name__ == "__main__":
 
-    assistant = ZyraAssistantOrchestrator()
-
     print("=" * 60)
-    print("ZYRA LUXE ASSISTANT - CONTEXT ROUTING")
-    print("=" * 60)
-
-    product_history = [
-        {
-            "role": "user",
-            "content": "Show me oxidized earrings"
-        },
-        {
-            "role": "assistant",
-            "content": "I found some oxidized earrings."
-        }
-    ]
-
-    print("\n1. Product follow-up")
-
     print(
-        assistant.handle(
-            "Show me more",
-            product_history
-        )
+        "ZYRA LUXE - ORCHESTRATOR TEST"
+    )
+    print("=" * 60)
+
+    orchestrator = (
+        ZyraAssistantOrchestrator()
     )
 
-    policy_history = [
-        {
+    history = []
+
+    test_messages = [
+        "Hello",
+        "How are you?",
+        "What can you help me with?",
+        "Thanks"
+    ]
+
+    for message in test_messages:
+
+        print()
+        print("-" * 60)
+        print(
+            f"Customer: {message}"
+        )
+        print("-" * 60)
+
+        result = orchestrator.handle(
+            message,
+            history
+        )
+
+        print(
+            f"Route: "
+            f"{result.get('route')}"
+        )
+
+        print(
+            f"Answer: "
+            f"{result.get('answer')}"
+        )
+
+        history.append({
             "role": "user",
-            "content": "What is your return policy?"
-        },
-        {
+            "content": message
+        })
+
+        history.append({
             "role": "assistant",
-            "content": (
-                "You can request a return "
-                "within 2 hours of delivery."
+            "content": result.get(
+                "answer",
+                ""
             )
-        }
-    ]
+        })
 
-    print("\n2. Policy follow-up")
-
+    print()
+    print("=" * 60)
     print(
-        assistant.handle(
-            "Tell me more",
-            policy_history
-        )
+        "ORCHESTRATOR TEST COMPLETED"
     )
-
-    print("\n3. Product")
-
-    print(
-        assistant.handle(
-            "Show me oxidized earrings under 300"
-        )
-    )
-
-    print("\n4. Policy")
-
-    print(
-        assistant.handle(
-            "Do you sell my personal information?"
-        )
-    )
-
-    print("\n5. General")
-
-    print(
-        assistant.handle(
-            "Hello"
-        )
-    )
+    print("=" * 60)
