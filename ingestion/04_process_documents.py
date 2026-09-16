@@ -46,15 +46,17 @@ def create_documents(
 
         content = page.get("content", "").strip()
 
-        # Skip pages without useful content.
         if not content:
             continue
 
-        # Store searchable content separately from metadata.
         metadata = {
+            "page_id": page.get("page_id"),
             "page_type": page.get("page_type"),
+            "slug": page.get("slug"),
             "title": page.get("title"),
             "url": page.get("url"),
+            "modified": page.get("modified"),
+            "modified_gmt": page.get("modified_gmt"),
         }
 
         document = Document(
@@ -65,7 +67,6 @@ def create_documents(
         documents.append(document)
 
     return documents
-
 
 # ------------------------------------------------------------
 # VALIDATE DOCUMENTS

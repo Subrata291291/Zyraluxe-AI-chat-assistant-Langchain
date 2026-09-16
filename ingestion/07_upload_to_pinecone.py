@@ -71,15 +71,22 @@ def upload_vectors(
 
     for item in embeddings:
 
+        metadata = item["metadata"]
+
         vectors.append({
             "id": item["chunk_id"],
             "values": item["embedding"],
             "metadata": {
                 "text": item["text"],
-                "page_type": item["metadata"]["page_type"],
-                "title": item["metadata"]["title"],
-                "url": item["metadata"]["url"],
-                "chunk_index": item["metadata"]["chunk_index"],
+                "page_id": metadata["page_id"],
+                "page_type": metadata["page_type"],
+                "slug": metadata["slug"],
+                "title": metadata["title"],
+                "url": metadata["url"],
+                "modified": metadata["modified"],
+                "modified_gmt": metadata["modified_gmt"],
+                "chunk_index": metadata["chunk_index"],
+                "chunk_id": metadata["chunk_id"],
             }
         })
 
@@ -91,7 +98,6 @@ def upload_vectors(
     print(
         f"Vectors uploaded: {len(vectors)}"
     )
-
 
 if __name__ == "__main__":
 

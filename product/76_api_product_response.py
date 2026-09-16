@@ -1,15 +1,13 @@
-import json
 import importlib.util
 from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-PRODUCT_FILE = (
+PRODUCT_API_FILE = (
     PROJECT_ROOT
-    / "data"
-    / "products"
-    / "products_stock_normalized.json"
+    / "product"
+    / "92_woocommerce_product_api.py"
 )
 
 CARD_FILE = (
@@ -32,7 +30,14 @@ def load_module(name, file_path):
         file_path
     )
 
-    module = importlib.util.module_from_spec(spec)
+    if spec is None or spec.loader is None:
+        raise ImportError(
+            f"Could not load module: {file_path}"
+        )
+
+    module = importlib.util.module_from_spec(
+        spec
+    )
 
     spec.loader.exec_module(module)
 
@@ -42,8 +47,6 @@ def load_module(name, file_path):
 class APIProductResponse:
 
     def __init__(self):
-
-        self.products = self.load_products()
 
         recommendation_module = load_module(
             "product_recommendation",
@@ -55,23 +58,61 @@ class APIProductResponse:
             ROUTER_FILE
         )
 
+        product_api_module = load_module(
+            "woocommerce_product_api_response",
+            PRODUCT_API_FILE
+        )
+
         self.recommender = (
             recommendation_module.ProductRecommendationEngine(
                 top_k=5
             )
         )
 
-        self.router = router_module.ZyraQueryRouter()
+        self.router = (
+            router_module.ZyraQueryRouter()
+        )
 
-    def load_products(self):
+        self.product_api = (
+            product_api_module.WooCommerceProductAPI()
+        )
 
-        with open(
-            PRODUCT_FILE,
-            "r",
-            encoding="utf-8"
-        ) as file:
+    def get_live_products(self):
 
-            return json.load(file)
+        all_products = []
+
+        page = 1
+
+        while True:
+
+            response = self.product_api.get_products(
+                page=page,
+                per_page=100
+            )
+
+            products = response.get(
+                "products",
+                []
+            )
+
+            all_products.extend(
+                products
+            )
+
+            total_products = response.get(
+                "total_products",
+                0
+            )
+
+            if not products:
+                break
+
+            if len(all_products) >= total_products:
+                break
+
+            page += 1
+
+        return all_products
 
     def get_previous_product_query(
         self,
@@ -153,6 +194,95 @@ class APIProductResponse:
 
         return customer_query
 
+    def normalize_product(
+        self,
+        product
+    ):
+
+        categories = [
+            category.get("name", "")
+            for category in product.get(
+                "categories",
+                []
+            )
+        ]
+
+        tags = [
+            tag.get("name", "")
+            for tag in product.get(
+                "tags",
+                []
+            )
+        ]
+
+        images = product.get(
+            "images",
+            []
+        )
+
+        image = None
+
+        if images:
+
+            image = images[0].get(
+                "src"
+            )
+
+        stock_status = product.get(
+            "stock_status"
+        )
+
+        in_stock = (
+            stock_status == "instock"
+        )
+
+        stock_label = (
+            "In Stock"
+            if in_stock
+            else "Out of Stock"
+        )
+
+        price = product.get(
+            "price"
+        )
+
+        if price not in (
+            None,
+            ""
+        ):
+
+            try:
+                price = float(price)
+            except (
+                TypeError,
+                ValueError
+            ):
+                price = None
+
+        return {
+            "name": product.get(
+                "name"
+            ),
+            "price": price,
+            "in_stock": in_stock,
+            "stock_label": stock_label,
+            "categories": categories,
+            "tags": tags,
+            "description": (
+                product.get(
+                    "short_description"
+                )
+                or product.get(
+                    "description"
+                )
+                or ""
+            ),
+            "image": image,
+            "url": product.get(
+                "permalink"
+            )
+        }
+
     def create_response(
         self,
         customer_query,
@@ -182,7 +312,8 @@ class APIProductResponse:
             )
 
         print(
-            f"Product search query: {search_query}"
+            f"Product search query: "
+            f"{search_query}"
         )
 
         print(
@@ -197,49 +328,36 @@ class APIProductResponse:
             )
         )
 
+        live_products = (
+            self.get_live_products()
+        )
+
         product_map = {
-            product.get("url"): product
-            for product in self.products
+            product.get("permalink"): product
+            for product in live_products
+            if product.get("permalink")
         }
 
         products = []
 
         for result in recommendation["results"]:
 
+            url = result.get(
+                "url"
+            )
+
             product = product_map.get(
-                result.get("url")
+                url
             )
 
             if not product:
                 continue
 
-            products.append({
-                "name": product.get("name"),
-                "price": product.get("price"),
-                "in_stock": product.get("in_stock"),
-                "stock_label": product.get(
-                    "stock_label",
-                    "Stock Unknown"
-                ),
-                "categories": product.get(
-                    "categories",
-                    []
-                ),
-                "tags": product.get(
-                    "tags",
-                    []
-                ),
-                "description": product.get(
-                    "description",
-                    ""
-                ),
-                "image": product.get(
-                    "image"
-                ),
-                "url": product.get(
-                    "url"
+            products.append(
+                self.normalize_product(
+                    product
                 )
-            })
+            )
 
         return {
             "success": True,
@@ -257,7 +375,7 @@ if __name__ == "__main__":
     service = APIProductResponse()
 
     print("=" * 60)
-    print("ZYRA LUXE - API PRODUCT RESPONSE")
+    print("ZYRA LUXE - LIVE API PRODUCT RESPONSE")
     print("=" * 60)
 
     print()
@@ -269,21 +387,49 @@ if __name__ == "__main__":
 
     print()
     print(
-        json.dumps(
-            response,
-            indent=2,
-            ensure_ascii=False
-        )
+        f"Products Returned: "
+        f"{response['product_count']}"
     )
+
+    for rank, product in enumerate(
+        response["products"],
+        start=1
+    ):
+
+        print()
+        print(
+            f"Rank: {rank}"
+        )
+
+        print(
+            f"Name: "
+            f"{product['name']}"
+        )
+
+        print(
+            f"Price: "
+            f"₹{product['price']}"
+        )
+
+        print(
+            f"Stock: "
+            f"{product['stock_label']}"
+        )
+
+        print(
+            f"Image: "
+            f"{product['image']}"
+        )
+
+        print(
+            f"URL: "
+            f"{product['url']}"
+        )
 
     print()
     print("-" * 60)
     print("2. Product follow-up")
     print("-" * 60)
-
-    first_response = service.create_response(
-        "Show me oxidized jewellery"
-    )
 
     history = [
         {
@@ -292,21 +438,50 @@ if __name__ == "__main__":
         },
         {
             "role": "assistant",
-            "content": "I found 5 products.",
-            "products": first_response["products"]
+            "content": "I found products.",
+            "products": response["products"]
         }
     ]
 
-    response = service.create_response(
+    next_response = service.create_response(
         "Show me more",
         history
     )
 
     print()
     print(
-        json.dumps(
-            response,
-            indent=2,
-            ensure_ascii=False
-        )
+        f"New Products Returned: "
+        f"{next_response['product_count']}"
     )
+
+    for rank, product in enumerate(
+        next_response["products"],
+        start=1
+    ):
+
+        print()
+        print(
+            f"Rank: {rank}"
+        )
+
+        print(
+            f"Name: "
+            f"{product['name']}"
+        )
+
+        print(
+            f"Price: "
+            f"₹{product['price']}"
+        )
+
+        print(
+            f"URL: "
+            f"{product['url']}"
+        )
+
+    print()
+    print("=" * 60)
+    print(
+        "LIVE API PRODUCT RESPONSE COMPLETED"
+    )
+    print("=" * 60)

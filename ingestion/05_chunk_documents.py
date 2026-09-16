@@ -62,7 +62,6 @@ def split_documents(
     documents: list[Document]
 ) -> list[Document]:
 
-    # Create the recursive text splitter.
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=CHUNK_SIZE,
         chunk_overlap=CHUNK_OVERLAP,
@@ -75,19 +74,32 @@ def split_documents(
         ]
     )
 
-    # Split all documents into smaller chunks.
     chunks = splitter.split_documents(
         documents
     )
 
-    # Add chunk metadata.
-    for index, chunk in enumerate(chunks):
+    page_chunk_counts = {}
 
-        chunk.metadata["chunk_index"] = index
-        chunk.metadata["chunk_id"] = f"policy-{index}"
+    for chunk in chunks:
+
+        page_id = chunk.metadata.get(
+            "page_id"
+        )
+
+        if page_id not in page_chunk_counts:
+            page_chunk_counts[page_id] = 0
+
+        chunk_index = page_chunk_counts[page_id]
+
+        chunk.metadata["chunk_index"] = chunk_index
+
+        chunk.metadata["chunk_id"] = (
+            f"page-{page_id}-chunk-{chunk_index}"
+        )
+
+        page_chunk_counts[page_id] += 1
 
     return chunks
-
 
 # ------------------------------------------------------------
 # SAVE CHUNKS
