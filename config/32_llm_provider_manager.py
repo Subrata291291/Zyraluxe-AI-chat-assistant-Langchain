@@ -13,7 +13,6 @@ CONFIG_FILE = Path(__file__).parent / "18_config.py"
 class LLMProviderManager:
 
     def __init__(self, config):
-
         self.config = config
         self.providers = self._create_providers()
 
@@ -21,16 +20,9 @@ class LLMProviderManager:
 
         return [
             (
-                "gemini",
-                ChatGoogleGenerativeAI(
-                    model=self.config.LLM_MODEL,
-                    temperature=0
-                )
-            ),
-            (
                 "groq",
                 ChatGroq(
-                    model="llama-3.1-8b-instant",
+                    model="openai/gpt-oss-20b",
                     temperature=0
                 )
             ),
@@ -38,6 +30,13 @@ class LLMProviderManager:
                 "openrouter",
                 ChatOpenRouter(
                     model="openai/gpt-oss-20b",
+                    temperature=0
+                )
+            ),
+            (
+                "gemini",
+                ChatGoogleGenerativeAI(
+                    model=self.config.LLM_MODEL,
                     temperature=0
                 )
             ),
@@ -111,7 +110,10 @@ def load_config():
     if spec is None or spec.loader is None:
         raise ImportError("Could not load configuration.")
 
-    config = importlib.util.module_from_spec(spec)
+    config = importlib.util.module_from_spec(
+        spec
+    )
+
     spec.loader.exec_module(config)
 
     return config
