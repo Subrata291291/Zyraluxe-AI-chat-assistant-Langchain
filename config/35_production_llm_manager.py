@@ -41,13 +41,6 @@ class ProductionLLMManager:
 
         return [
             (
-                "gemini",
-                ChatGoogleGenerativeAI(
-                    model=self.config.LLM_MODEL,
-                    temperature=0
-                )
-            ),
-            (
                 "groq",
                 ChatGroq(
                     model="openai/gpt-oss-20b",
@@ -58,6 +51,13 @@ class ProductionLLMManager:
                 "openrouter",
                 ChatOpenRouter(
                     model="openai/gpt-oss-20b",
+                    temperature=0
+                )
+            ),
+            (
+                "gemini",
+                ChatGoogleGenerativeAI(
+                    model=self.config.LLM_MODEL,
                     temperature=0
                 )
             ),
